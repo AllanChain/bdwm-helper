@@ -8,6 +8,7 @@
     "preview": "vite preview"
   },
   "tampermonkey": {
+    "name": "未名 BBS 屏蔽助手",
     "description": "BDWM Block",
     "author": "motaguoke & Allan Chain",
     "match": [
@@ -17,6 +18,9 @@
       "https://*.bdwm.net/*"
     ],
     "run-at": "document-body",
+    "icon": "https://bbs.pku.edu.cn/favicon.ico",
+    "source": "https://github.com/AllanChain/bdwm-helper",
+    "supportURL": "https://github.com/AllanChain/bdwm-helper/issues",
     "updateURL": "https://allanchain.github.io/bdwm-helper/bdwm-helper.iife.user.js"
   },
   "dependencies": {
