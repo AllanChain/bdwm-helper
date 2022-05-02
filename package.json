@@ -1,5 +1,5 @@
 {
-  "name": "bdwm-blocker",
+  "name": "bdwm-helper",
   "private": true,
   "version": "2.0",
   "scripts": {
@@ -16,7 +16,8 @@
       "http://*.bdwm.net/*",
       "https://*.bdwm.net/*"
     ],
-    "run-at": "document-body"
+    "run-at": "document-body",
+    "updateURL": "https://allanchain.github.io/bdwm-helper/bdwm-helper.iife.user.js"
   },
   "dependencies": {
     "vue": "^3.2.25"
