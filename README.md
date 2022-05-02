@@ -1,16 +1,33 @@
-# Vue 3 + TypeScript + Vite
+# 未名 BBS 屏蔽插件
 
-This template should help get you started developing with Vue 3 and TypeScript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+感谢 motaguoke 的初期工作！
 
-## Recommended IDE Setup
+当前依然处于开发阶段。
 
-- [VS Code](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.volar)
+主要功能：
+- 屏蔽用户
+- 屏蔽版面（部分支持）
 
-## Type Support For `.vue` Imports in TS
+未来功能（？
+- 深色模式
+- ...
 
-Since TypeScript cannot handle type information for `.vue` imports, they are shimmed to be a generic Vue component type by default. In most cases this is fine if you don't really care about component prop types outside of templates. However, if you wish to get actual prop types in `.vue` imports (for example to get props validation when using manual `h(...)` calls), you can enable Volar's Take Over mode by following these steps:
+## 安装
 
-1. Run `Extensions: Show Built-in Extensions` from VS Code's command palette, look for `TypeScript and JavaScript Language Features`, then right click and select `Disable (Workspace)`. By default, Take Over mode will enable itself if the default TypeScript extension is disabled.
-2. Reload the VS Code window by running `Developer: Reload Window` from the command palette.
+确保安装了 Tampermonkey 插件，然后从下面的网址安装
 
-You can learn more about Take Over mode [here](https://github.com/johnsoncodehk/volar/discussions/471).
+https://allanchain.github.io/bdwm-helper/bdwm-helper.iife.user.js
+
+## 使用说明
+
+在看贴时，用户的关注按钮边上会添加一个屏蔽按钮
+
+<img width="337" alt="image" src="https://user-images.githubusercontent.com/36528777/166259988-868d4b02-0885-4668-ad89-cc3a57299e77.png">
+
+点击后，用户本次发言以及其他发言就会被屏蔽
+
+<img width="383" alt="image" src="https://user-images.githubusercontent.com/36528777/166260038-ee43419b-4fa3-4093-9383-4bcdc9a94a07.png">
+
+如果想取消屏蔽或管理屏蔽 ID，可以在页面右上角点设置
+
+<img width="805" alt="image" src="https://user-images.githubusercontent.com/36528777/166260110-80ff6fcf-5345-4c2e-9720-dea3f6bc5e34.png">
