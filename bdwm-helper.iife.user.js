@@ -1,0 +1,219 @@
+/*!
+// ==UserScript==
+// @name              未名 BBS 屏蔽助手
+// @version           2.0
+// @description       BDWM Block
+// @author            motaguoke & Allan Chain
+// @require           https://unpkg.com/vue@3.2.33
+// @source            https://github.com/AllanChain/bdwm-helper
+// @icon              https://bbs.pku.edu.cn/favicon.ico
+// @updateURL         https://allanchain.github.io/bdwm-helper/bdwm-helper.iife.user.js
+// @supportURL        https://github.com/AllanChain/bdwm-helper/issues
+// @match             http://bbs.pku.edu.cn/*
+// @match             https://bbs.pku.edu.cn/*
+// @match             http://*.bdwm.net/*
+// @match             https://*.bdwm.net/*
+// @run-at            document-body
+// @grant             GM_addStyle
+// ==/UserScript==
+*/
+(function(vue) {
+  "use strict";
+  GM_addStyle(".i-carbon-close{--un-icon:url(\"data:image/svg+xml;utf8,%3Csvg preserveAspectRatio='xMidYMid meet' viewBox='0 0 32 32' width='1em' height='1em' xmlns='http://www.w3.org/2000/svg' %3E%3Cpath fill='currentColor' d='M24 9.4L22.6 8L16 14.6L9.4 8L8 9.4l6.6 6.6L8 22.6L9.4 24l6.6-6.6l6.6 6.6l1.4-1.4l-6.6-6.6L24 9.4z'/%3E%3C/svg%3E\");mask:var(--un-icon) no-repeat;mask-size:100% 100%;-webkit-mask:var(--un-icon) no-repeat;-webkit-mask-size:100% 100%;background-color:currentColor;width:1em;height:1em;}[un-position~=\"absolute\"]{position:absolute;}[un-position~=\"fixed\"]{position:fixed;}[un-position~=\"left-1\\/2\"]{left:50%;}[un-position~=\"right-2\"]{right:0.5rem;}[un-position~=\"top-1\\/2\"]{top:50%;}[un-position~=\"top-2\"]{top:0.5rem;}[un-z-200=\"\"]{z-index:200;}[un-m~=\"x-1\"]{margin-left:0.25rem;margin-right:0.25rem;}[un-m~=\"x-4\"]{margin-left:1rem;margin-right:1rem;}[un-m~=\"y-1\"]{margin-top:0.25rem;margin-bottom:0.25rem;}[un-display~=\"block\"]{display:block;}[un-display~=\"flex\"],[un-flex=\"\"]{display:flex;}[un-h-60=\"\"]{height:15rem;}[un-max-w~=\"\\31 1\\/12\"]{max-width:91.6666666667%;}[un-w-200=\"\"]{width:50rem;}[un-w~=\"\\34 \"]{width:1rem;}[un-flex-wrap=\"\"]{flex-wrap:wrap;}[un-transform~=\"translate-x--1\\/2\"],[un-transform~=\"translate-y--1\\/2\"]{--un-rotate:0;--un-rotate-x:0;--un-rotate-y:0;--un-rotate-z:0;--un-scale-x:1;--un-scale-y:1;--un-scale-z:1;--un-skew-x:0;--un-skew-y:0;--un-translate-x:0;--un-translate-y:0;--un-translate-z:0;--un-transform:translateX(var(--un-translate-x)) translateY(var(--un-translate-y)) translateZ(var(--un-translate-z)) rotate(var(--un-rotate)) rotateX(var(--un-rotate-x)) rotateY(var(--un-rotate-y)) rotateZ(var(--un-rotate-z)) skewX(var(--un-skew-x)) skewY(var(--un-skew-y)) scaleX(var(--un-scale-x)) scaleY(var(--un-scale-y)) scaleZ(var(--un-scale-z));}[un-transform~=\"translate-x--1\\/2\"]{--un-translate-x:-50%;transform:var(--un-transform);}[un-transform~=\"translate-y--1\\/2\"]{--un-translate-y:-50%;transform:var(--un-transform);}[un-cursor~=\"pointer\"]{cursor:pointer;}[un-items-center=\"\"]{align-items:center;}[un-overflow~=\"hidden\"]{overflow:hidden;}[un-overflow~=\"y-auto\"]{overflow-y:auto;}[un-border~=\"t-10\"]{border-top-width:10px;border-top-style:solid;}[un-border~=\"orange-400\"]{--un-border-opacity:1;border-color:rgba(251,146,60,var(--un-border-opacity));}[un-border~=\"rounded-full\"]{border-radius:9999px;}[un-border~=\"rounded-lg\"]{border-radius:0.5rem;}[un-bg~=\"gray-100\\/90\"]{background-color:rgba(243,244,246,0.9);}[un-bg~=\"orange-200\"]{--un-bg-opacity:1;background-color:rgba(254,215,170,var(--un-bg-opacity));}[un-bg~=\"red-300\"]{--un-bg-opacity:1;background-color:rgba(252,165,165,var(--un-bg-opacity));}[un-p~=\"y-0\\.5\"]{padding-top:0.125rem;padding-bottom:0.125rem;}[un-p~=\"l-2\"]{padding-left:0.5rem;}[un-p~=\"r-1\"]{padding-right:0.25rem;}[un-text~=\"sm\"]{font-size:0.875rem;line-height:1.25rem;}[un-text~=\"gray-600\"]{--un-text-opacity:1;color:rgba(75,85,99,var(--un-text-opacity));}[un-text~=\"white\"]{--un-text-opacity:1;color:rgba(255,255,255,var(--un-text-opacity));}");
+  const showSettings = vue.ref(false);
+  const toggleSettings = () => {
+    showSettings.value = !showSettings.value;
+  };
+  const loadBlockedUsers = () => {
+    const blockedUsers2 = localStorage.getItem("block-user-list");
+    return blockedUsers2 ? JSON.parse(blockedUsers2) : [];
+  };
+  const blockedUsers = vue.ref(loadBlockedUsers());
+  const writeBlockedUsers = () => {
+    localStorage.setItem("block-user-list", JSON.stringify(blockedUsers.value));
+  };
+  const addBlockedUser = (userId) => {
+    if (!blockedUsers.value.includes(userId)) {
+      blockedUsers.value.push(userId);
+      writeBlockedUsers();
+    }
+  };
+  const unblockUser = (userId) => {
+    blockedUsers.value = blockedUsers.value.filter((user) => user !== userId);
+    writeBlockedUsers();
+  };
+  const _hoisted_1 = {
+    key: 0,
+    "un-position": "fixed top-1/2 left-1/2",
+    "un-transform": "translate-y--1/2 translate-x--1/2",
+    "un-w-200": "",
+    "un-h-60": "",
+    "un-z-200": "",
+    "un-max-w": "11/12",
+    "un-border": "rounded-lg t-10 orange-400",
+    "un-overflow": "y-auto",
+    "un-bg": "gray-100/90"
+  };
+  const _hoisted_2 = /* @__PURE__ */ vue.createElementVNode("i", {
+    "un-display": "block",
+    class: "i-carbon-close"
+  }, null, -1);
+  const _hoisted_3 = [
+    _hoisted_2
+  ];
+  const _hoisted_4 = {
+    "un-m": "x-4",
+    "un-overflow": "y-auto"
+  };
+  const _hoisted_5 = /* @__PURE__ */ vue.createElementVNode("h4", null, "\u5DF2\u5C4F\u853D\u7684\u7528\u6237", -1);
+  const _hoisted_6 = /* @__PURE__ */ vue.createElementVNode("p", { "un-text": "sm gray-600" }, " \u53D6\u6D88\u5C4F\u853D\u540E\u9700\u8981\u5237\u65B0\u9875\u9762\u624D\u80FD\u751F\u6548 ", -1);
+  const _hoisted_7 = {
+    "un-flex": "",
+    "un-flex-wrap": ""
+  };
+  const _hoisted_8 = { "un-p": "l-2 r-1 y-0.5" };
+  const _hoisted_9 = ["onClick"];
+  const _hoisted_10 = /* @__PURE__ */ vue.createElementVNode("i", {
+    "un-display": "block",
+    class: "i-carbon-close"
+  }, null, -1);
+  const _hoisted_11 = [
+    _hoisted_10
+  ];
+  const _sfc_main = /* @__PURE__ */ vue.defineComponent({
+    setup(__props) {
+      return (_ctx, _cache) => {
+        return vue.unref(showSettings) ? (vue.openBlock(), vue.createElementBlock("div", _hoisted_1, [
+          vue.createElementVNode("div", {
+            "un-position": "absolute top-2 right-2",
+            onClick: _cache[0] || (_cache[0] = ($event) => showSettings.value = false)
+          }, _hoisted_3),
+          vue.createElementVNode("div", _hoisted_4, [
+            _hoisted_5,
+            _hoisted_6,
+            vue.createElementVNode("div", _hoisted_7, [
+              (vue.openBlock(true), vue.createElementBlock(vue.Fragment, null, vue.renderList(vue.unref(blockedUsers), (blockedUser) => {
+                return vue.openBlock(), vue.createElementBlock("div", {
+                  key: blockedUser,
+                  "un-display": "flex",
+                  "un-border": "rounded-full",
+                  "un-bg": "orange-200",
+                  "un-m": "x-1 y-1",
+                  "un-overflow": "hidden"
+                }, [
+                  vue.createElementVNode("div", _hoisted_8, vue.toDisplayString(blockedUser), 1),
+                  vue.createElementVNode("div", {
+                    "un-w": "4",
+                    "un-p": "r-1",
+                    "un-bg": "red-300",
+                    "un-text": "white",
+                    "un-cursor": "pointer",
+                    "un-display": "flex",
+                    "un-items-center": "",
+                    onClick: ($event) => vue.unref(unblockUser)(blockedUser)
+                  }, _hoisted_11, 8, _hoisted_9)
+                ]);
+              }), 128))
+            ])
+          ])
+        ])) : vue.createCommentVNode("", true);
+      };
+    }
+  });
+  const BLOCK_BOARDS = "[\u522B\u95EE\u6211\u662F\u8C01]";
+  const blockHomepageBoards = () => {
+    const links = document.getElementsByClassName("topic-link");
+    for (const homepageBoardLink of links) {
+      if (BLOCK_BOARDS.includes(homepageBoardLink.innerText)) {
+        homepageBoardLink.innerText = "[\u5DF2\u5C4F\u853D\u7248\u9762]";
+        homepageBoardLink.href = "javascript:void(0)";
+        const bordTopicLink = homepageBoardLink.nextSibling;
+        bordTopicLink.href = "javascript:void(0)";
+        bordTopicLink.innerText = "\u5C4F\u853D\u7248\u9762\u7684\u8BDD\u9898";
+      }
+    }
+  };
+  const blockUser = (event) => {
+    const blockBtn = event.target;
+    const username = blockBtn.dataset.username;
+    if (!username) {
+      return;
+    }
+    addBlockedUser(username);
+    blockBtn.parentNode.removeChild(blockBtn);
+  };
+  const blockPostCard = () => {
+    for (const postCard of document.getElementsByClassName("post-card")) {
+      const usernameElement = postCard.getElementsByClassName("username")[0].firstChild;
+      const username = usernameElement.innerText;
+      if (blockedUsers.value.includes(username)) {
+        const postContent = postCard.getElementsByClassName("body file-read image-click-view")[0];
+        postContent.innerText = "[bdwm\u5C4F\u853D\u63D2\u4EF6] \u8BE5\u7528\u6237\u7684\u53D1\u8A00\u5DF2\u88AB\u60A8\u5C4F\u853D\uFF01";
+        postContent.style.color = "red";
+        usernameElement.innerText = "\u5C4F\u853D\u7528\u6237";
+        const portraitElement = postCard.getElementsByClassName("portrait")[0];
+        portraitElement.src = "https://bbs.pku.edu.cn/v2/images/user/portrait-neu.png";
+        const funcBar = postCard.querySelector(".functions");
+        if (funcBar) {
+          funcBar.parentNode.removeChild(funcBar);
+        }
+      } else if (username !== "\u5C4F\u853D\u7528\u6237") {
+        const funcElement = postCard.querySelector(".functions .line.wide-btn");
+        if (funcElement && !funcElement.querySelector(".block")) {
+          const blockBtn = document.createElement("a");
+          blockBtn.className = "block";
+          blockBtn.innerText = "\u5C4F\u853D";
+          blockBtn.dataset.username = username;
+          blockBtn.addEventListener("click", blockUser);
+          funcElement.appendChild(blockBtn);
+        }
+      }
+    }
+  };
+  const blockTopicItem = () => {
+    for (const topicItem of document.getElementsByClassName("list-item-topic")) {
+      for (const authorElement of topicItem.getElementsByClassName("author")) {
+        const authorNameElement = authorElement.getElementsByClassName("name")[0];
+        const authorName = authorNameElement.innerText;
+        if (blockedUsers.value.includes(authorName)) {
+          authorNameElement.innerText = "\u5C4F\u853D\u7528\u6237";
+          const tilteElement = topicItem.querySelector(".title-cont .title");
+          tilteElement.innerText = "\u5C4F\u853D\u7528\u6237\u7684\u8BDD\u9898";
+          topicItem.querySelector("a").href = "javascript:void(0)";
+          const previousElement = authorElement.previousElementSibling;
+          if (Array.from(previousElement.classList).includes("avatar")) {
+            previousElement.querySelector("img").src = "https://bbs.pku.edu.cn/v2/images/user/portrait-neu.png";
+          }
+        }
+      }
+    }
+  };
+  const initBlock = () => {
+    console.log("BDWM_BLOCK by motaguoke Version: 2.0");
+    new MutationObserver(() => {
+      blockHomepageBoards();
+      blockPostCard();
+      blockTopicItem();
+    }).observe(document.documentElement, {
+      childList: true,
+      subtree: true
+    });
+  };
+  const createSettingsBtn = () => {
+    const settingBtn = document.createElement("span");
+    settingBtn.innerHTML = '<img width="20" src="images/user/portrait-neu.png">';
+    settingBtn.addEventListener("click", toggleSettings);
+    const settingParent = document.querySelector(".right-icons");
+    if (!settingParent) {
+      throw new Error("Unable to register settings button");
+    }
+    settingParent.appendChild(settingBtn);
+    return settingBtn;
+  };
+  var __uno = "";
+  initBlock();
+  createSettingsBtn();
+  const anchorDiv = document.createElement("div");
+  document.body.appendChild(anchorDiv);
+  vue.createApp(_sfc_main).mount(anchorDiv);
+})(Vue);
