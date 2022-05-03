@@ -13,6 +13,7 @@ import { blockedUsers, unblockUser } from './stores/blocked'
     un-border="rounded-lg t-10 orange-400"
     un-overflow="y-auto"
     un-bg="gray-100/90"
+    un-text="sm"
   >
     <div
       un-position="absolute top-2 right-2"
@@ -21,7 +22,9 @@ import { blockedUsers, unblockUser } from './stores/blocked'
       <i un-display="block" class="i-carbon-close" />
     </div>
     <div un-m="x-4" un-overflow="y-auto">
-      <h4>已屏蔽的用户</h4>
+      <div un-text="base" un-font="bold" un-m="y-2">
+        已屏蔽的用户
+      </div>
       <p un-text="sm gray-600">
         取消屏蔽后需要刷新页面才能生效
       </p>
