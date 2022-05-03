@@ -2,32 +2,34 @@ import { isDesktop } from '../is-mobile'
 import { blockedBoards, toggleBlockedBoard } from '../stores/blocked'
 
 const addBlockBoardBtn = () => {
-  if (isDesktop) {
-    const boardHead = document.querySelector('#board-head')
-    if (!boardHead || boardHead?.querySelector('.block')) {
-      return
+  const boardHead = document.querySelector(isDesktop ? '#board-head' : '.board-head')
+  if (!boardHead || boardHead?.querySelector('.block')) {
+    return
+  }
+  const boardTitle = boardHead.querySelector(
+    isDesktop ? '.title-text.black' : '.title > .cn',
+  )?.innerHTML
+  if (!boardTitle) {
+    return
+  }
+  const blockHint = '屏蔽此版面的热帖'
+  const unblockHint = '取消屏蔽此版面的热帖'
+  const blockBtn = document.createElement('div')
+  const assignBlockHint = () => {
+    if (blockedBoards.value.includes(boardTitle)) {
+      blockBtn.innerText = unblockHint
     }
-    const boardTitle = boardHead.querySelector('.title-text.black')?.innerHTML
-    if (!boardTitle) {
-      return
+    else {
+      blockBtn.innerText = blockHint
     }
-    const blockHint = '屏蔽此版面的热帖'
-    const unblockHint = '取消屏蔽此版面的热帖'
-    const blockBtn = document.createElement('div')
-    const assignBlockHint = () => {
-      if (blockedBoards.value.includes(boardTitle)) {
-        blockBtn.innerText = unblockHint
-      }
-      else {
-        blockBtn.innerText = blockHint
-      }
-    }
+  }
+  assignBlockHint()
+  blockBtn.addEventListener('click', () => {
+    toggleBlockedBoard(boardTitle)
     assignBlockHint()
-    blockBtn.addEventListener('click', () => {
-      toggleBlockedBoard(boardTitle)
-      assignBlockHint()
-    })
-    blockBtn.className = 'block'
+  })
+  blockBtn.className = 'block'
+  if (isDesktop) {
     Object.assign(blockBtn.style, {
       cursor: 'pointer',
       position: 'absolute',
@@ -35,8 +37,18 @@ const addBlockBoardBtn = () => {
       right: '40px',
       color: '#E17819',
     } as CSSStyleDeclaration)
-    boardHead.appendChild(blockBtn)
   }
+  else {
+    Object.assign(blockBtn.style, {
+      cursor: 'pointer',
+      position: 'absolute',
+      top: '50px',
+      right: '15px',
+      color: '#E17819',
+      fontSize: '12px',
+    } as CSSStyleDeclaration)
+  }
+  boardHead.appendChild(blockBtn)
 }
 
 /**
