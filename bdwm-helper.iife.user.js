@@ -187,31 +187,31 @@
   const isDesktop = !isMobile;
   const addBlockBoardBtn = () => {
     var _a;
-    if (isDesktop) {
-      const boardHead = document.querySelector("#board-head");
-      if (!boardHead || (boardHead == null ? void 0 : boardHead.querySelector(".block"))) {
-        return;
+    const boardHead = document.querySelector(isDesktop ? "#board-head" : ".board-head");
+    if (!boardHead || (boardHead == null ? void 0 : boardHead.querySelector(".block"))) {
+      return;
+    }
+    const boardTitle = (_a = boardHead.querySelector(isDesktop ? ".title-text.black" : ".title > .cn")) == null ? void 0 : _a.innerHTML;
+    if (!boardTitle) {
+      return;
+    }
+    const blockHint = "\u5C4F\u853D\u6B64\u7248\u9762\u7684\u70ED\u5E16";
+    const unblockHint = "\u53D6\u6D88\u5C4F\u853D\u6B64\u7248\u9762\u7684\u70ED\u5E16";
+    const blockBtn = document.createElement("div");
+    const assignBlockHint = () => {
+      if (blockedBoards.value.includes(boardTitle)) {
+        blockBtn.innerText = unblockHint;
+      } else {
+        blockBtn.innerText = blockHint;
       }
-      const boardTitle = (_a = boardHead.querySelector(".title-text.black")) == null ? void 0 : _a.innerHTML;
-      if (!boardTitle) {
-        return;
-      }
-      const blockHint = "\u5C4F\u853D\u6B64\u7248\u9762\u7684\u70ED\u5E16";
-      const unblockHint = "\u53D6\u6D88\u5C4F\u853D\u6B64\u7248\u9762\u7684\u70ED\u5E16";
-      const blockBtn = document.createElement("div");
-      const assignBlockHint = () => {
-        if (blockedBoards.value.includes(boardTitle)) {
-          blockBtn.innerText = unblockHint;
-        } else {
-          blockBtn.innerText = blockHint;
-        }
-      };
+    };
+    assignBlockHint();
+    blockBtn.addEventListener("click", () => {
+      toggleBlockedBoard(boardTitle);
       assignBlockHint();
-      blockBtn.addEventListener("click", () => {
-        toggleBlockedBoard(boardTitle);
-        assignBlockHint();
-      });
-      blockBtn.className = "block";
+    });
+    blockBtn.className = "block";
+    if (isDesktop) {
       Object.assign(blockBtn.style, {
         cursor: "pointer",
         position: "absolute",
@@ -219,8 +219,17 @@
         right: "40px",
         color: "#E17819"
       });
-      boardHead.appendChild(blockBtn);
+    } else {
+      Object.assign(blockBtn.style, {
+        cursor: "pointer",
+        position: "absolute",
+        top: "50px",
+        right: "15px",
+        color: "#E17819",
+        fontSize: "12px"
+      });
     }
+    boardHead.appendChild(blockBtn);
   };
   const blockHomepageBoards = () => {
     var _a, _b, _c;
