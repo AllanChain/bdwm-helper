@@ -125,6 +125,8 @@
       };
     }
   });
+  const isMobile = location.href.includes("/mobile/");
+  const isDesktop = !isMobile;
   const BLOCK_BOARDS = "[\u522B\u95EE\u6211\u662F\u8C01]";
   const blockHomepageBoards = () => {
     const links = document.getElementsByClassName("topic-link");
@@ -148,26 +150,29 @@
     blockBtn.parentNode.removeChild(blockBtn);
   };
   const getUsernameAndElement = (postCard) => {
-    var _a, _b, _c;
-    let usernameElement;
-    const username = ((_a = usernameElement = postCard.querySelector(".username a")) == null ? void 0 : _a.innerText) || ((_c = (_b = usernameElement = postCard.querySelector(".author .name")) == null ? void 0 : _b.firstChild) == null ? void 0 : _c.textContent) || null;
-    return { username, usernameElement };
+    var _a;
+    if (isDesktop) {
+      const usernameElement2 = postCard.querySelector(".username a");
+      return { username: usernameElement2.innerText, usernameElement: usernameElement2 };
+    }
+    const usernameElement = postCard.querySelector(".author .name");
+    return { username: (_a = usernameElement.firstChild) == null ? void 0 : _a.textContent, usernameElement };
   };
   const getPostContentElement = (postCard) => {
     return postCard.querySelector(".body");
   };
   const getAvatarElement = (postCard) => {
-    return postCard.querySelector("img.portrait") || postCard.querySelector("img.avatar");
+    return isDesktop ? postCard.querySelector("img.portrait") : postCard.querySelector("img.avatar");
   };
   const addBlockBtn = (postCard, username) => {
-    const funcElement = postCard.querySelector(".functions .line.wide-btn");
     const blockBtn = document.createElement("a");
     blockBtn.className = "block";
     blockBtn.innerText = "\u5C4F\u853D";
     blockBtn.dataset.username = username;
     blockBtn.addEventListener("click", blockUser);
-    if (funcElement) {
-      if (!funcElement.querySelector(".block")) {
+    if (isDesktop) {
+      const funcElement = postCard.querySelector(".functions .line.wide-btn");
+      if (funcElement && !funcElement.querySelector(".block")) {
         funcElement.appendChild(blockBtn);
       }
     } else {
@@ -189,7 +194,6 @@
       if (!username) {
         continue;
       }
-      console.log(username);
       if (blockedUsers.value.includes(username)) {
         const postContent = getPostContentElement(postCard);
         const paraElement = document.createElement("p");
@@ -201,9 +205,11 @@
         }
         const portraitElement = getAvatarElement(postCard);
         portraitElement.src = "https://bbs.pku.edu.cn/v2/images/user/portrait-neu.png";
-        const funcBar = postCard.querySelector(".functions");
-        if (funcBar) {
-          funcBar.parentNode.removeChild(funcBar);
+        if (isDesktop) {
+          const funcBar = postCard.querySelector(".functions");
+          if (funcBar) {
+            funcBar.parentNode.removeChild(funcBar);
+          }
         }
       } else if (username !== "\u5C4F\u853D\u7528\u6237") {
         addBlockBtn(postCard, username);
@@ -241,24 +247,26 @@
   };
   const createSettingsBtn = () => {
     var _a;
-    const settingParent = document.querySelector(".right-icons");
-    if (settingParent) {
-      const settingBtn = document.createElement("span");
-      settingBtn.innerHTML = '<img width="20" src="images/user/portrait-neu.png">';
-      settingBtn.addEventListener("click", toggleSettings);
-      settingParent.appendChild(settingBtn);
-      return;
-    }
-    const friendMenu = (_a = document.querySelector('a[href*="mode=reject"]')) == null ? void 0 : _a.parentElement;
-    if (friendMenu) {
+    if (isMobile) {
+      const friendMenu = (_a = document.querySelector('a[href*="mode=reject"]')) == null ? void 0 : _a.parentElement;
+      if (!friendMenu) {
+        throw new Error("Unable to register settings button");
+      }
       const settingBtn = document.createElement("li");
       settingBtn.innerHTML = '<img width="10" src="images/user/portrait-neu.png"> \u5C4F\u853D\u8BBE\u7F6E';
       settingBtn.style.cursor = "pointer";
       settingBtn.addEventListener("click", toggleSettings);
       friendMenu.parentElement.appendChild(settingBtn);
-      return;
+    } else {
+      const settingParent = document.querySelector(".right-icons");
+      if (!settingParent) {
+        throw new Error("Unable to register settings button");
+      }
+      const settingBtn = document.createElement("span");
+      settingBtn.innerHTML = '<img width="20" src="images/user/portrait-neu.png">';
+      settingBtn.addEventListener("click", toggleSettings);
+      settingParent.appendChild(settingBtn);
     }
-    throw new Error("Unable to register settings button");
   };
   var __uno = "";
   initBlock();
