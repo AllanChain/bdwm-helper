@@ -42,6 +42,69 @@
     blockedUsers.value = blockedUsers.value.filter((user) => user !== userId);
     writeBlockedUsers();
   };
+  const loadBlockedBoards = () => {
+    const blockedBoards2 = localStorage.getItem("block-board-list");
+    return blockedBoards2 ? JSON.parse(blockedBoards2) : [];
+  };
+  const blockedBoards = vue.ref(loadBlockedBoards());
+  const writeBlockedBoards = () => {
+    localStorage.setItem("block-board-list", JSON.stringify(blockedBoards.value));
+  };
+  const addBlockedBoard = (boardId) => {
+    if (!blockedBoards.value.includes(boardId)) {
+      blockedBoards.value.push(boardId);
+      writeBlockedBoards();
+    }
+  };
+  const unblockBoard = (boardId) => {
+    blockedBoards.value = blockedBoards.value.filter((board) => board !== boardId);
+    writeBlockedBoards();
+  };
+  const toggleBlockedBoard = (boardId) => {
+    if (blockedBoards.value.includes(boardId)) {
+      unblockBoard(boardId);
+    } else {
+      addBlockedBoard(boardId);
+    }
+  };
+  const _hoisted_1$1 = {
+    "un-display": "flex",
+    "un-border": "rounded-full",
+    "un-bg": "orange-200",
+    "un-m": "x-1 y-1",
+    "un-overflow": "hidden"
+  };
+  const _hoisted_2$1 = { "un-p": "l-2 r-1 y-0.5" };
+  const _hoisted_3$1 = /* @__PURE__ */ vue.createElementVNode("i", {
+    "un-display": "block",
+    class: "i-carbon-close"
+  }, null, -1);
+  const _hoisted_4$1 = [
+    _hoisted_3$1
+  ];
+  const _sfc_main$1 = /* @__PURE__ */ vue.defineComponent({
+    props: {
+      name: null
+    },
+    emits: ["click"],
+    setup(__props, { emit }) {
+      return (_ctx, _cache) => {
+        return vue.openBlock(), vue.createElementBlock("div", _hoisted_1$1, [
+          vue.createElementVNode("div", _hoisted_2$1, vue.toDisplayString(__props.name), 1),
+          vue.createElementVNode("div", {
+            "un-w": "4",
+            "un-p": "r-1",
+            "un-bg": "red-300",
+            "un-text": "white",
+            "un-cursor": "pointer",
+            "un-display": "flex",
+            "un-items-center": "",
+            onClick: _cache[0] || (_cache[0] = ($event) => emit("click", __props.name))
+          }, _hoisted_4$1)
+        ]);
+      };
+    }
+  });
   const _hoisted_1 = {
     key: 0,
     "un-position": "fixed top-1/2 left-1/2",
@@ -66,25 +129,25 @@
     "un-m": "x-4",
     "un-overflow": "y-auto"
   };
-  const _hoisted_5 = /* @__PURE__ */ vue.createElementVNode("div", {
+  const _hoisted_5 = /* @__PURE__ */ vue.createElementVNode("span", {
     "un-text": "base",
     "un-font": "bold",
     "un-m": "y-2"
   }, " \u5DF2\u5C4F\u853D\u7684\u7528\u6237 ", -1);
-  const _hoisted_6 = /* @__PURE__ */ vue.createElementVNode("p", { "un-text": "sm gray-600" }, " \u53D6\u6D88\u5C4F\u853D\u540E\u9700\u8981\u5237\u65B0\u9875\u9762\u624D\u80FD\u751F\u6548 ", -1);
-  const _hoisted_7 = {
+  const _hoisted_6 = {
     "un-flex": "",
     "un-flex-wrap": ""
   };
-  const _hoisted_8 = { "un-p": "l-2 r-1 y-0.5" };
-  const _hoisted_9 = ["onClick"];
-  const _hoisted_10 = /* @__PURE__ */ vue.createElementVNode("i", {
-    "un-display": "block",
-    class: "i-carbon-close"
-  }, null, -1);
-  const _hoisted_11 = [
-    _hoisted_10
-  ];
+  const _hoisted_7 = /* @__PURE__ */ vue.createElementVNode("span", {
+    "un-text": "base",
+    "un-font": "bold",
+    "un-m": "y-2"
+  }, " \u5DF2\u5C4F\u853D\u7684\u7248\u9762 ", -1);
+  const _hoisted_8 = {
+    "un-flex": "",
+    "un-flex-wrap": ""
+  };
+  const _hoisted_9 = /* @__PURE__ */ vue.createElementVNode("p", { "un-text": "sm gray-600" }, " \u53D6\u6D88\u5C4F\u853D\u540E\u9700\u8981\u5237\u65B0\u9875\u9762\u624D\u80FD\u751F\u6548 ", -1);
   const _sfc_main = /* @__PURE__ */ vue.defineComponent({
     setup(__props) {
       return (_ctx, _cache) => {
@@ -95,31 +158,26 @@
           }, _hoisted_3),
           vue.createElementVNode("div", _hoisted_4, [
             _hoisted_5,
-            _hoisted_6,
-            vue.createElementVNode("div", _hoisted_7, [
+            vue.createElementVNode("div", _hoisted_6, [
               (vue.openBlock(true), vue.createElementBlock(vue.Fragment, null, vue.renderList(vue.unref(blockedUsers), (blockedUser) => {
-                return vue.openBlock(), vue.createElementBlock("div", {
+                return vue.openBlock(), vue.createBlock(_sfc_main$1, {
                   key: blockedUser,
-                  "un-display": "flex",
-                  "un-border": "rounded-full",
-                  "un-bg": "orange-200",
-                  "un-m": "x-1 y-1",
-                  "un-overflow": "hidden"
-                }, [
-                  vue.createElementVNode("div", _hoisted_8, vue.toDisplayString(blockedUser), 1),
-                  vue.createElementVNode("div", {
-                    "un-w": "4",
-                    "un-p": "r-1",
-                    "un-bg": "red-300",
-                    "un-text": "white",
-                    "un-cursor": "pointer",
-                    "un-display": "flex",
-                    "un-items-center": "",
-                    onClick: ($event) => vue.unref(unblockUser)(blockedUser)
-                  }, _hoisted_11, 8, _hoisted_9)
-                ]);
+                  name: blockedUser,
+                  onClick: ($event) => vue.unref(unblockUser)(blockedUser)
+                }, null, 8, ["name", "onClick"]);
               }), 128))
-            ])
+            ]),
+            _hoisted_7,
+            vue.createElementVNode("div", _hoisted_8, [
+              (vue.openBlock(true), vue.createElementBlock(vue.Fragment, null, vue.renderList(vue.unref(blockedBoards), (blockedBoard) => {
+                return vue.openBlock(), vue.createBlock(_sfc_main$1, {
+                  key: blockedBoard,
+                  name: blockedBoard,
+                  onClick: ($event) => vue.unref(unblockBoard)(blockedBoard)
+                }, null, 8, ["name", "onClick"]);
+              }), 128))
+            ]),
+            _hoisted_9
           ])
         ])) : vue.createCommentVNode("", true);
       };
@@ -127,18 +185,72 @@
   });
   const isMobile = location.href.includes("/mobile/");
   const isDesktop = !isMobile;
-  const BLOCK_BOARDS = "[\u522B\u95EE\u6211\u662F\u8C01]";
+  const addBlockBoardBtn = () => {
+    var _a;
+    if (isDesktop) {
+      const boardHead = document.querySelector("#board-head");
+      if (!boardHead || (boardHead == null ? void 0 : boardHead.querySelector(".block"))) {
+        return;
+      }
+      const boardTitle = (_a = boardHead.querySelector(".title-text.black")) == null ? void 0 : _a.innerHTML;
+      if (!boardTitle) {
+        return;
+      }
+      const blockHint = "\u5C4F\u853D\u6B64\u7248\u9762\u7684\u70ED\u5E16";
+      const unblockHint = "\u53D6\u6D88\u5C4F\u853D\u6B64\u7248\u9762\u7684\u70ED\u5E16";
+      const blockBtn = document.createElement("div");
+      const assignBlockHint = () => {
+        if (blockedBoards.value.includes(boardTitle)) {
+          blockBtn.innerText = unblockHint;
+        } else {
+          blockBtn.innerText = blockHint;
+        }
+      };
+      assignBlockHint();
+      blockBtn.addEventListener("click", () => {
+        toggleBlockedBoard(boardTitle);
+        assignBlockHint();
+      });
+      blockBtn.className = "block";
+      Object.assign(blockBtn.style, {
+        cursor: "pointer",
+        position: "absolute",
+        top: "60px",
+        right: "40px",
+        color: "#E17819"
+      });
+      boardHead.appendChild(blockBtn);
+    }
+  };
   const blockHomepageBoards = () => {
-    const links = document.getElementsByClassName("topic-link");
-    for (const homepageBoardLink of links) {
-      if (BLOCK_BOARDS.includes(homepageBoardLink.innerText)) {
-        homepageBoardLink.innerText = "[\u5DF2\u5C4F\u853D\u7248\u9762]";
-        homepageBoardLink.href = "javascript:void(0)";
-        const bordTopicLink = homepageBoardLink.nextSibling;
-        bordTopicLink.href = "javascript:void(0)";
-        bordTopicLink.innerText = "\u5C4F\u853D\u7248\u9762\u7684\u8BDD\u9898";
+    var _a, _b, _c;
+    if (isDesktop) {
+      const links = document.getElementsByClassName("topic-link");
+      for (const homepageBoardLink of links) {
+        const boardTitle = homepageBoardLink.innerText.slice(1, -1);
+        if (blockedBoards.value.includes(boardTitle)) {
+          homepageBoardLink.innerText = "[\u5DF2\u5C4F\u853D\u7248\u9762]";
+          homepageBoardLink.href = "javascript:void(0)";
+          const bordTopicLink = homepageBoardLink.nextSibling;
+          bordTopicLink.href = "javascript:void(0)";
+          bordTopicLink.innerText = "\u5C4F\u853D\u7248\u9762\u7684\u8BDD\u9898";
+        }
+      }
+    } else {
+      for (const boardInfoElement of document.querySelectorAll("a.post-info")) {
+        const boardTitle = (_b = (_a = boardInfoElement.firstChild) == null ? void 0 : _a.textContent) == null ? void 0 : _b.trim();
+        console.log(boardTitle);
+        if (boardTitle && blockedBoards.value.includes(boardTitle)) {
+          boardInfoElement.innerHTML = "\u5DF2\u5C4F\u853D\u7248\u9762";
+          boardInfoElement.previousElementSibling.innerHTML = "\u5C4F\u853D\u7248\u9762\u7684\u8BDD\u9898";
+          const postLinkElement = (_c = boardInfoElement.parentElement) == null ? void 0 : _c.querySelector("a.post-link");
+          if (postLinkElement) {
+            postLinkElement.href = "javascript:void(0)";
+          }
+        }
       }
     }
+    addBlockBoardBtn();
   };
   const blockUser = (event) => {
     const blockBtn = event.target;
