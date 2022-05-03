@@ -1,3 +1,4 @@
+import { isDesktop } from './is-mobile'
 import { addBlockedUser, blockedUsers } from './stores/blocked'
 
 /** 字符串，首页屏蔽的版面，为了匹配简单，每个版面用方括号括起 */
@@ -30,14 +31,12 @@ const blockUser = (event: MouseEvent) => {
 }
 
 const getUsernameAndElement = (postCard: HTMLDivElement) => {
-  let usernameElement: HTMLAnchorElement | HTMLSpanElement | null
-  const username
-    = (usernameElement = postCard.querySelector('.username a') as HTMLAnchorElement | null)
-      ?.innerText
-    || (usernameElement = postCard.querySelector('.author .name') as HTMLSpanElement | null)
-      ?.firstChild?.textContent
-    || null
-  return { username, usernameElement }
+  if (isDesktop) {
+    const usernameElement = postCard.querySelector('.username a') as HTMLAnchorElement
+    return { username: usernameElement.innerText, usernameElement }
+  }
+  const usernameElement = postCard.querySelector('.author .name') as HTMLSpanElement
+  return { username: usernameElement.firstChild?.textContent, usernameElement }
 }
 
 const getPostContentElement = (postCard: HTMLDivElement) => {
@@ -45,21 +44,21 @@ const getPostContentElement = (postCard: HTMLDivElement) => {
 }
 
 const getAvatarElement = (postCard: HTMLDivElement) => {
-  return (
-    (postCard.querySelector('img.portrait') as HTMLImageElement)
-    || (postCard.querySelector('img.avatar') as HTMLImageElement)
-  )
+  return isDesktop
+    ? (postCard.querySelector('img.portrait') as HTMLImageElement)
+    : (postCard.querySelector('img.avatar') as HTMLImageElement)
 }
 
 const addBlockBtn = (postCard: HTMLDivElement, username: string) => {
-  const funcElement = postCard.querySelector('.functions .line.wide-btn')
   const blockBtn = document.createElement('a')
   blockBtn.className = 'block'
   blockBtn.innerText = '屏蔽'
   blockBtn.dataset.username = username
   blockBtn.addEventListener('click', blockUser)
-  if (funcElement) {
-    if (!funcElement.querySelector('.block')) {
+
+  if (isDesktop) {
+    const funcElement = postCard.querySelector('.functions .line.wide-btn')
+    if (funcElement && !funcElement.querySelector('.block')) {
       funcElement.appendChild(blockBtn)
     }
   }
@@ -86,7 +85,6 @@ const blockPostCard = () => {
     if (!username) {
       continue
     }
-    console.log(username)
     if (blockedUsers.value.includes(username)) {
       // BLOCK CONTENT
       const postContent = getPostContentElement(postCard)
@@ -100,9 +98,11 @@ const blockPostCard = () => {
       }
       const portraitElement = getAvatarElement(postCard)
       portraitElement.src = 'https://bbs.pku.edu.cn/v2/images/user/portrait-neu.png'
-      const funcBar = postCard.querySelector('.functions')
-      if (funcBar) {
-        funcBar.parentNode!.removeChild(funcBar)
+      if (isDesktop) {
+        const funcBar = postCard.querySelector('.functions')
+        if (funcBar) {
+          funcBar.parentNode!.removeChild(funcBar)
+        }
       }
     }
     else if (username !== '屏蔽用户') {
