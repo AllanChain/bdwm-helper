@@ -1,7 +1,7 @@
 /*!
 // ==UserScript==
 // @name              未名 BBS 屏蔽助手
-// @version           2.0
+// @version           2.0.0
 // @description       BDWM Block
 // @author            motaguoke & Allan Chain
 // @require           https://unpkg.com/vue@3.2.33
@@ -19,7 +19,7 @@
 */
 (function(vue) {
   "use strict";
-  GM_addStyle(".i-carbon-close{--un-icon:url(\"data:image/svg+xml;utf8,%3Csvg preserveAspectRatio='xMidYMid meet' viewBox='0 0 32 32' width='1em' height='1em' xmlns='http://www.w3.org/2000/svg' %3E%3Cpath fill='currentColor' d='M24 9.4L22.6 8L16 14.6L9.4 8L8 9.4l6.6 6.6L8 22.6L9.4 24l6.6-6.6l6.6 6.6l1.4-1.4l-6.6-6.6L24 9.4z'/%3E%3C/svg%3E\");mask:var(--un-icon) no-repeat;mask-size:100% 100%;-webkit-mask:var(--un-icon) no-repeat;-webkit-mask-size:100% 100%;background-color:currentColor;width:1em;height:1em;}[un-position~=\"absolute\"]{position:absolute;}[un-position~=\"fixed\"]{position:fixed;}[un-position~=\"left-1\\/2\"]{left:50%;}[un-position~=\"right-2\"]{right:0.5rem;}[un-position~=\"top-1\\/2\"]{top:50%;}[un-position~=\"top-2\"]{top:0.5rem;}[un-z-200=\"\"]{z-index:200;}[un-m~=\"x-1\"]{margin-left:0.25rem;margin-right:0.25rem;}[un-m~=\"x-4\"]{margin-left:1rem;margin-right:1rem;}[un-m~=\"y-1\"]{margin-top:0.25rem;margin-bottom:0.25rem;}[un-display~=\"block\"]{display:block;}[un-display~=\"flex\"],[un-flex=\"\"]{display:flex;}[un-h-60=\"\"]{height:15rem;}[un-max-w~=\"\\31 1\\/12\"]{max-width:91.6666666667%;}[un-w-200=\"\"]{width:50rem;}[un-w~=\"\\34 \"]{width:1rem;}[un-flex-wrap=\"\"]{flex-wrap:wrap;}[un-transform~=\"translate-x--1\\/2\"],[un-transform~=\"translate-y--1\\/2\"]{--un-rotate:0;--un-rotate-x:0;--un-rotate-y:0;--un-rotate-z:0;--un-scale-x:1;--un-scale-y:1;--un-scale-z:1;--un-skew-x:0;--un-skew-y:0;--un-translate-x:0;--un-translate-y:0;--un-translate-z:0;--un-transform:translateX(var(--un-translate-x)) translateY(var(--un-translate-y)) translateZ(var(--un-translate-z)) rotate(var(--un-rotate)) rotateX(var(--un-rotate-x)) rotateY(var(--un-rotate-y)) rotateZ(var(--un-rotate-z)) skewX(var(--un-skew-x)) skewY(var(--un-skew-y)) scaleX(var(--un-scale-x)) scaleY(var(--un-scale-y)) scaleZ(var(--un-scale-z));}[un-transform~=\"translate-x--1\\/2\"]{--un-translate-x:-50%;transform:var(--un-transform);}[un-transform~=\"translate-y--1\\/2\"]{--un-translate-y:-50%;transform:var(--un-transform);}[un-cursor~=\"pointer\"]{cursor:pointer;}[un-items-center=\"\"]{align-items:center;}[un-overflow~=\"hidden\"]{overflow:hidden;}[un-overflow~=\"y-auto\"]{overflow-y:auto;}[un-border~=\"t-10\"]{border-top-width:10px;border-top-style:solid;}[un-border~=\"orange-400\"]{--un-border-opacity:1;border-color:rgba(251,146,60,var(--un-border-opacity));}[un-border~=\"rounded-full\"]{border-radius:9999px;}[un-border~=\"rounded-lg\"]{border-radius:0.5rem;}[un-bg~=\"gray-100\\/90\"]{background-color:rgba(243,244,246,0.9);}[un-bg~=\"orange-200\"]{--un-bg-opacity:1;background-color:rgba(254,215,170,var(--un-bg-opacity));}[un-bg~=\"red-300\"]{--un-bg-opacity:1;background-color:rgba(252,165,165,var(--un-bg-opacity));}[un-p~=\"y-0\\.5\"]{padding-top:0.125rem;padding-bottom:0.125rem;}[un-p~=\"l-2\"]{padding-left:0.5rem;}[un-p~=\"r-1\"]{padding-right:0.25rem;}[un-text~=\"sm\"]{font-size:0.875rem;line-height:1.25rem;}[un-text~=\"gray-600\"]{--un-text-opacity:1;color:rgba(75,85,99,var(--un-text-opacity));}[un-text~=\"white\"]{--un-text-opacity:1;color:rgba(255,255,255,var(--un-text-opacity));}");
+  GM_addStyle(".i-carbon-close{--un-icon:url(\"data:image/svg+xml;utf8,%3Csvg preserveAspectRatio='xMidYMid meet' viewBox='0 0 32 32' width='1em' height='1em' xmlns='http://www.w3.org/2000/svg' %3E%3Cpath fill='currentColor' d='M24 9.4L22.6 8L16 14.6L9.4 8L8 9.4l6.6 6.6L8 22.6L9.4 24l6.6-6.6l6.6 6.6l1.4-1.4l-6.6-6.6L24 9.4z'/%3E%3C/svg%3E\");mask:var(--un-icon) no-repeat;mask-size:100% 100%;-webkit-mask:var(--un-icon) no-repeat;-webkit-mask-size:100% 100%;background-color:currentColor;width:1em;height:1em;}[un-position~=\"absolute\"]{position:absolute;}[un-position~=\"fixed\"]{position:fixed;}[un-position~=\"left-1\\/2\"]{left:50%;}[un-position~=\"right-2\"]{right:0.5rem;}[un-position~=\"top-1\\/2\"]{top:50%;}[un-position~=\"top-2\"]{top:0.5rem;}[un-z-200=\"\"]{z-index:200;}[un-m~=\"x-1\"]{margin-left:0.25rem;margin-right:0.25rem;}[un-m~=\"x-4\"]{margin-left:1rem;margin-right:1rem;}[un-m~=\"y-1\"]{margin-top:0.25rem;margin-bottom:0.25rem;}[un-m~=\"y-2\"]{margin-top:0.5rem;margin-bottom:0.5rem;}[un-display~=\"block\"]{display:block;}[un-display~=\"flex\"],[un-flex=\"\"]{display:flex;}[un-h-60=\"\"]{height:15rem;}[un-max-w~=\"\\31 1\\/12\"]{max-width:91.6666666667%;}[un-w-200=\"\"]{width:50rem;}[un-w~=\"\\34 \"]{width:1rem;}[un-flex-wrap=\"\"]{flex-wrap:wrap;}[un-transform~=\"translate-x--1\\/2\"],[un-transform~=\"translate-y--1\\/2\"]{--un-rotate:0;--un-rotate-x:0;--un-rotate-y:0;--un-rotate-z:0;--un-scale-x:1;--un-scale-y:1;--un-scale-z:1;--un-skew-x:0;--un-skew-y:0;--un-translate-x:0;--un-translate-y:0;--un-translate-z:0;--un-transform:translateX(var(--un-translate-x)) translateY(var(--un-translate-y)) translateZ(var(--un-translate-z)) rotate(var(--un-rotate)) rotateX(var(--un-rotate-x)) rotateY(var(--un-rotate-y)) rotateZ(var(--un-rotate-z)) skewX(var(--un-skew-x)) skewY(var(--un-skew-y)) scaleX(var(--un-scale-x)) scaleY(var(--un-scale-y)) scaleZ(var(--un-scale-z));}[un-transform~=\"translate-x--1\\/2\"]{--un-translate-x:-50%;transform:var(--un-transform);}[un-transform~=\"translate-y--1\\/2\"]{--un-translate-y:-50%;transform:var(--un-transform);}[un-cursor~=\"pointer\"]{cursor:pointer;}[un-items-center=\"\"]{align-items:center;}[un-overflow~=\"hidden\"]{overflow:hidden;}[un-overflow~=\"y-auto\"]{overflow-y:auto;}[un-border~=\"t-10\"]{border-top-width:10px;border-top-style:solid;}[un-border~=\"orange-400\"]{--un-border-opacity:1;border-color:rgba(251,146,60,var(--un-border-opacity));}[un-border~=\"rounded-full\"]{border-radius:9999px;}[un-border~=\"rounded-lg\"]{border-radius:0.5rem;}[un-bg~=\"gray-100\\/90\"]{background-color:rgba(243,244,246,0.9);}[un-bg~=\"orange-200\"]{--un-bg-opacity:1;background-color:rgba(254,215,170,var(--un-bg-opacity));}[un-bg~=\"red-300\"]{--un-bg-opacity:1;background-color:rgba(252,165,165,var(--un-bg-opacity));}[un-p~=\"y-0\\.5\"]{padding-top:0.125rem;padding-bottom:0.125rem;}[un-p~=\"l-2\"]{padding-left:0.5rem;}[un-p~=\"r-1\"]{padding-right:0.25rem;}[un-text~=\"base\"]{font-size:1rem;line-height:1.5rem;}[un-text~=\"sm\"]{font-size:0.875rem;line-height:1.25rem;}[un-font~=\"bold\"]{font-weight:700;}[un-text~=\"gray-600\"]{--un-text-opacity:1;color:rgba(75,85,99,var(--un-text-opacity));}[un-text~=\"white\"]{--un-text-opacity:1;color:rgba(255,255,255,var(--un-text-opacity));}");
   const showSettings = vue.ref(false);
   const toggleSettings = () => {
     showSettings.value = !showSettings.value;
@@ -52,7 +52,8 @@
     "un-max-w": "11/12",
     "un-border": "rounded-lg t-10 orange-400",
     "un-overflow": "y-auto",
-    "un-bg": "gray-100/90"
+    "un-bg": "gray-100/90",
+    "un-text": "sm"
   };
   const _hoisted_2 = /* @__PURE__ */ vue.createElementVNode("i", {
     "un-display": "block",
@@ -65,7 +66,11 @@
     "un-m": "x-4",
     "un-overflow": "y-auto"
   };
-  const _hoisted_5 = /* @__PURE__ */ vue.createElementVNode("h4", null, "\u5DF2\u5C4F\u853D\u7684\u7528\u6237", -1);
+  const _hoisted_5 = /* @__PURE__ */ vue.createElementVNode("div", {
+    "un-text": "base",
+    "un-font": "bold",
+    "un-m": "y-2"
+  }, " \u5DF2\u5C4F\u853D\u7684\u7528\u6237 ", -1);
   const _hoisted_6 = /* @__PURE__ */ vue.createElementVNode("p", { "un-text": "sm gray-600" }, " \u53D6\u6D88\u5C4F\u853D\u540E\u9700\u8981\u5237\u65B0\u9875\u9762\u624D\u80FD\u751F\u6548 ", -1);
   const _hoisted_7 = {
     "un-flex": "",
@@ -142,31 +147,66 @@
     addBlockedUser(username);
     blockBtn.parentNode.removeChild(blockBtn);
   };
+  const getUsernameAndElement = (postCard) => {
+    var _a, _b, _c;
+    let usernameElement;
+    const username = ((_a = usernameElement = postCard.querySelector(".username a")) == null ? void 0 : _a.innerText) || ((_c = (_b = usernameElement = postCard.querySelector(".author .name")) == null ? void 0 : _b.firstChild) == null ? void 0 : _c.textContent) || null;
+    return { username, usernameElement };
+  };
+  const getPostContentElement = (postCard) => {
+    return postCard.querySelector(".body");
+  };
+  const getAvatarElement = (postCard) => {
+    return postCard.querySelector("img.portrait") || postCard.querySelector("img.avatar");
+  };
+  const addBlockBtn = (postCard, username) => {
+    const funcElement = postCard.querySelector(".functions .line.wide-btn");
+    const blockBtn = document.createElement("a");
+    blockBtn.className = "block";
+    blockBtn.innerText = "\u5C4F\u853D";
+    blockBtn.dataset.username = username;
+    blockBtn.addEventListener("click", blockUser);
+    if (funcElement) {
+      if (!funcElement.querySelector(".block")) {
+        funcElement.appendChild(blockBtn);
+      }
+    } else {
+      if (!postCard.querySelector(".block")) {
+        blockBtn.style.position = "absolute";
+        blockBtn.style.top = "32px";
+        blockBtn.style.right = "15px";
+        blockBtn.style.color = "#E17819";
+        blockBtn.style.fontSize = "12px";
+        blockBtn.style.cursor = "pointer";
+        postCard.appendChild(blockBtn);
+      }
+    }
+  };
   const blockPostCard = () => {
-    for (const postCard of document.getElementsByClassName("post-card")) {
-      const usernameElement = postCard.getElementsByClassName("username")[0].firstChild;
-      const username = usernameElement.innerText;
+    const postCards = document.getElementsByClassName("post-card");
+    for (const postCard of postCards) {
+      const { username, usernameElement } = getUsernameAndElement(postCard);
+      if (!username) {
+        continue;
+      }
+      console.log(username);
       if (blockedUsers.value.includes(username)) {
-        const postContent = postCard.getElementsByClassName("body file-read image-click-view")[0];
-        postContent.innerText = "[bdwm\u5C4F\u853D\u63D2\u4EF6] \u8BE5\u7528\u6237\u7684\u53D1\u8A00\u5DF2\u88AB\u60A8\u5C4F\u853D\uFF01";
-        postContent.style.color = "red";
-        usernameElement.innerText = "\u5C4F\u853D\u7528\u6237";
-        const portraitElement = postCard.getElementsByClassName("portrait")[0];
+        const postContent = getPostContentElement(postCard);
+        const paraElement = document.createElement("p");
+        paraElement.innerText = "\u5C4F\u853D\u7528\u6237\u7684\u53D1\u8A00";
+        paraElement.style.color = "red";
+        postContent.replaceChildren(paraElement);
+        if (usernameElement) {
+          usernameElement.innerText = "\u5C4F\u853D\u7528\u6237";
+        }
+        const portraitElement = getAvatarElement(postCard);
         portraitElement.src = "https://bbs.pku.edu.cn/v2/images/user/portrait-neu.png";
         const funcBar = postCard.querySelector(".functions");
         if (funcBar) {
           funcBar.parentNode.removeChild(funcBar);
         }
       } else if (username !== "\u5C4F\u853D\u7528\u6237") {
-        const funcElement = postCard.querySelector(".functions .line.wide-btn");
-        if (funcElement && !funcElement.querySelector(".block")) {
-          const blockBtn = document.createElement("a");
-          blockBtn.className = "block";
-          blockBtn.innerText = "\u5C4F\u853D";
-          blockBtn.dataset.username = username;
-          blockBtn.addEventListener("click", blockUser);
-          funcElement.appendChild(blockBtn);
-        }
+        addBlockBtn(postCard, username);
       }
     }
   };
@@ -200,15 +240,25 @@
     });
   };
   const createSettingsBtn = () => {
-    const settingBtn = document.createElement("span");
-    settingBtn.innerHTML = '<img width="20" src="images/user/portrait-neu.png">';
-    settingBtn.addEventListener("click", toggleSettings);
+    var _a;
     const settingParent = document.querySelector(".right-icons");
-    if (!settingParent) {
-      throw new Error("Unable to register settings button");
+    if (settingParent) {
+      const settingBtn = document.createElement("span");
+      settingBtn.innerHTML = '<img width="20" src="images/user/portrait-neu.png">';
+      settingBtn.addEventListener("click", toggleSettings);
+      settingParent.appendChild(settingBtn);
+      return;
     }
-    settingParent.appendChild(settingBtn);
-    return settingBtn;
+    const friendMenu = (_a = document.querySelector('a[href*="mode=reject"]')) == null ? void 0 : _a.parentElement;
+    if (friendMenu) {
+      const settingBtn = document.createElement("li");
+      settingBtn.innerHTML = '<img width="10" src="images/user/portrait-neu.png"> \u5C4F\u853D\u8BBE\u7F6E';
+      settingBtn.style.cursor = "pointer";
+      settingBtn.addEventListener("click", toggleSettings);
+      friendMenu.parentElement.appendChild(settingBtn);
+      return;
+    }
+    throw new Error("Unable to register settings button");
   };
   var __uno = "";
   initBlock();
