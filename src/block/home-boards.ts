@@ -44,7 +44,9 @@ const addBlockBoardBtn = () => {
  */
 export const blockHomepageBoards = () => {
   if (isDesktop) {
-    const links = document.getElementsByClassName('topic-link') as HTMLCollectionOf<HTMLAnchorElement>
+    const links = document.getElementsByClassName(
+      'topic-link',
+    ) as HTMLCollectionOf<HTMLAnchorElement>
     for (const homepageBoardLink of links) {
       const boardTitle = homepageBoardLink.innerText.slice(1, -1)
       if (blockedBoards.value.includes(boardTitle)) {
@@ -53,6 +55,22 @@ export const blockHomepageBoards = () => {
         const bordTopicLink = homepageBoardLink.nextSibling as HTMLAnchorElement
         bordTopicLink.href = 'javascript:void(0)'
         bordTopicLink.innerText = '屏蔽版面的话题'
+      }
+    }
+  }
+  else {
+    for (const boardInfoElement of document.querySelectorAll('a.post-info')) {
+      const boardTitle = boardInfoElement.firstChild?.textContent?.trim()
+      console.log(boardTitle)
+      if (boardTitle && blockedBoards.value.includes(boardTitle)) {
+        boardInfoElement.innerHTML = '已屏蔽版面'
+        boardInfoElement.previousElementSibling!.innerHTML = '屏蔽版面的话题'
+        const postLinkElement = boardInfoElement.parentElement?.querySelector(
+          'a.post-link',
+        ) as HTMLAnchorElement
+        if (postLinkElement) {
+          postLinkElement.href = 'javascript:void(0)'
+        }
       }
     }
   }
