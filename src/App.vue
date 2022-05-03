@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { showSettings } from './stores/switch'
-import { blockedUsers, unblockUser } from './stores/blocked'
+import { blockedBoards, blockedUsers, unblockBoard, unblockUser } from './stores/blocked'
+import BlockedItem from './components/BlockedItem.vue'
 </script>
 
 <template>
@@ -22,40 +23,30 @@ import { blockedUsers, unblockUser } from './stores/blocked'
       <i un-display="block" class="i-carbon-close" />
     </div>
     <div un-m="x-4" un-overflow="y-auto">
-      <div un-text="base" un-font="bold" un-m="y-2">
-        已屏蔽的用户
-      </div>
       <p un-text="sm gray-600">
         取消屏蔽后需要刷新页面才能生效
       </p>
+      <div un-text="base" un-font="bold" un-m="y-2">
+        已屏蔽的用户
+      </div>
       <div un-flex un-flex-wrap>
-        <div
+        <BlockedItem
           v-for="blockedUser in blockedUsers"
           :key="blockedUser"
-          un-display="flex"
-          un-border="rounded-full"
-          un-bg="orange-200"
-          un-m="x-1 y-1"
-          un-overflow="hidden"
-        >
-          <div
-            un-p="l-2 r-1 y-0.5"
-          >
-            {{ blockedUser }}
-          </div>
-          <div
-            un-w="4"
-            un-p="r-1"
-            un-bg="red-300"
-            un-text="white"
-            un-cursor="pointer"
-            un-display="flex"
-            un-items-center
-            @click="unblockUser(blockedUser)"
-          >
-            <i un-display="block" class="i-carbon-close" />
-          </div>
-        </div>
+          :name="blockedUser"
+          @click="unblockUser(blockedUser)"
+        />
+      </div>
+      <div un-text="base" un-font="bold" un-m="y-2">
+        已屏蔽的版面
+      </div>
+      <div un-flex un-flex-wrap>
+        <BlockedItem
+          v-for="blockedBoard in blockedBoards"
+          :key="blockedBoard"
+          :name="blockedBoard"
+          @click="unblockBoard(blockedBoard)"
+        />
       </div>
     </div>
   </div>
