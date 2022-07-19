@@ -13,15 +13,13 @@
 // @match             https://bbs.pku.edu.cn/*
 // @match             http://*.bdwm.net/*
 // @match             https://*.bdwm.net/*
-// @resource          dark-css https://cdn.jsdelivr.net/gh/AllanChain/bdwm-helper/public/dark.css
 // @run-at            document-body
 // @grant             GM_addStyle
-// @grant             GM_getResourceText
 // ==/UserScript==
 */
 (function(vue) {
   "use strict";
-  GM_addStyle(".i-carbon-close{--un-icon:url(\"data:image/svg+xml;utf8,%3Csvg preserveAspectRatio='xMidYMid meet' viewBox='0 0 32 32' width='1em' height='1em' xmlns='http://www.w3.org/2000/svg' %3E%3Cpath fill='currentColor' d='M24 9.4L22.6 8L16 14.6L9.4 8L8 9.4l6.6 6.6L8 22.6L9.4 24l6.6-6.6l6.6 6.6l1.4-1.4l-6.6-6.6L24 9.4z'/%3E%3C/svg%3E\");mask:var(--un-icon) no-repeat;mask-size:100% 100%;-webkit-mask:var(--un-icon) no-repeat;-webkit-mask-size:100% 100%;background-color:currentColor;width:1em;height:1em;}.i-carbon-moon{--un-icon:url(\"data:image/svg+xml;utf8,%3Csvg preserveAspectRatio='xMidYMid meet' viewBox='0 0 32 32' width='1em' height='1em' xmlns='http://www.w3.org/2000/svg' %3E%3Cpath fill='currentColor' d='M13.502 5.414a15.075 15.075 0 0 0 11.594 18.194a11.113 11.113 0 0 1-7.975 3.39c-.138 0-.278.005-.418 0a11.094 11.094 0 0 1-3.2-21.584M14.98 3a1.002 1.002 0 0 0-.175.016a13.096 13.096 0 0 0 1.825 25.981c.164.006.328 0 .49 0a13.072 13.072 0 0 0 10.703-5.555a1.01 1.01 0 0 0-.783-1.565A13.08 13.08 0 0 1 15.89 4.38A1.015 1.015 0 0 0 14.98 3Z'/%3E%3C/svg%3E\");mask:var(--un-icon) no-repeat;mask-size:100% 100%;-webkit-mask:var(--un-icon) no-repeat;-webkit-mask-size:100% 100%;background-color:currentColor;width:1em;height:1em;}.i-carbon-sun{--un-icon:url(\"data:image/svg+xml;utf8,%3Csvg preserveAspectRatio='xMidYMid meet' viewBox='0 0 32 32' width='1em' height='1em' xmlns='http://www.w3.org/2000/svg' %3E%3Cpath fill='currentColor' d='M16 12.005a4 4 0 1 1-4 4a4.005 4.005 0 0 1 4-4m0-2a6 6 0 1 0 6 6a6 6 0 0 0-6-6ZM5.394 6.813L6.81 5.399l3.505 3.506L8.9 10.319zM2 15.005h5v2H2zm3.394 10.193L8.9 21.692l1.414 1.414l-3.505 3.506zM15 25.005h2v5h-2zm6.687-1.9l1.414-1.414l3.506 3.506l-1.414 1.414zm3.313-8.1h5v2h-5zm-3.313-6.101l3.506-3.506l1.414 1.414l-3.506 3.506zM15 2.005h2v5h-2z'/%3E%3C/svg%3E\");mask:var(--un-icon) no-repeat;mask-size:100% 100%;-webkit-mask:var(--un-icon) no-repeat;-webkit-mask-size:100% 100%;background-color:currentColor;width:1em;height:1em;}[un-position~=\"absolute\"]{position:absolute;}[un-position~=\"fixed\"]{position:fixed;}[un-position~=\"left-1\\/2\"]{left:50%;}[un-position~=\"right-2\"]{right:0.5rem;}[un-position~=\"top-1\\/2\"]{top:50%;}[un-position~=\"top-2\"]{top:0.5rem;}[un-z-200=\"\"]{z-index:200;}[un-m~=\"x-1\"]{margin-left:0.25rem;margin-right:0.25rem;}[un-m~=\"x-4\"]{margin-left:1rem;margin-right:1rem;}[un-m~=\"y-1\"]{margin-top:0.25rem;margin-bottom:0.25rem;}[un-m~=\"y-2\"]{margin-top:0.5rem;margin-bottom:0.5rem;}[un-display~=\"block\"]{display:block;}[un-display~=\"flex\"],[un-flex=\"\"]{display:flex;}[un-display~=\"inline-block\"]{display:inline-block;}[un-h-60=\"\"]{height:15rem;}[un-max-w~=\"\\31 1\\/12\"]{max-width:91.6666666667%;}[un-w-200=\"\"]{width:50rem;}[un-w~=\"\\34 \"]{width:1rem;}[un-flex-wrap=\"\"]{flex-wrap:wrap;}[un-transform~=\"translate-x--1\\/2\"],[un-transform~=\"translate-y--1\\/2\"]{--un-rotate:0;--un-rotate-x:0;--un-rotate-y:0;--un-rotate-z:0;--un-scale-x:1;--un-scale-y:1;--un-scale-z:1;--un-skew-x:0;--un-skew-y:0;--un-translate-x:0;--un-translate-y:0;--un-translate-z:0;--un-transform:translateX(var(--un-translate-x)) translateY(var(--un-translate-y)) translateZ(var(--un-translate-z)) rotate(var(--un-rotate)) rotateX(var(--un-rotate-x)) rotateY(var(--un-rotate-y)) rotateZ(var(--un-rotate-z)) skewX(var(--un-skew-x)) skewY(var(--un-skew-y)) scaleX(var(--un-scale-x)) scaleY(var(--un-scale-y)) scaleZ(var(--un-scale-z));}[un-transform~=\"translate-x--1\\/2\"]{--un-translate-x:-50%;transform:var(--un-transform);}[un-transform~=\"translate-y--1\\/2\"]{--un-translate-y:-50%;transform:var(--un-transform);}[un-cursor~=\"pointer\"]{cursor:pointer;}[un-items-center=\"\"]{align-items:center;}[un-overflow~=\"hidden\"]{overflow:hidden;}[un-overflow~=\"y-auto\"]{overflow-y:auto;}[un-border~=\"t-10\"]{border-top-width:10px;border-top-style:solid;}[un-border~=\"orange-400\"]{--un-border-opacity:1;border-color:rgba(251,146,60,var(--un-border-opacity));}[un-border~=\"rounded-full\"]{border-radius:9999px;}[un-border~=\"rounded-lg\"]{border-radius:0.5rem;}[un-bg~=\"gray-100\\/90\"]{background-color:rgba(243,244,246,0.9);}[un-bg~=\"orange-200\"]{--un-bg-opacity:1;background-color:rgba(254,215,170,var(--un-bg-opacity));}[un-bg~=\"red-300\"]{--un-bg-opacity:1;background-color:rgba(252,165,165,var(--un-bg-opacity));}[un-p~=\"y-0\\.5\"]{padding-top:0.125rem;padding-bottom:0.125rem;}[un-p~=\"l-2\"]{padding-left:0.5rem;}[un-p~=\"r-1\"]{padding-right:0.25rem;}[un-text~=\"base\"]{font-size:1rem;line-height:1.5rem;}[un-text~=\"sm\"]{font-size:0.875rem;line-height:1.25rem;}[un-font~=\"bold\"]{font-weight:700;}[un-text~=\"gray-600\"]{--un-text-opacity:1;color:rgba(75,85,99,var(--un-text-opacity));}[un-text~=\"white\"]{--un-text-opacity:1;color:rgba(255,255,255,var(--un-text-opacity));}");
+  GM_addStyle(".i-carbon-close{--un-icon:url(\"data:image/svg+xml;utf8,%3Csvg preserveAspectRatio='xMidYMid meet' viewBox='0 0 32 32' width='1em' height='1em' xmlns='http://www.w3.org/2000/svg' %3E%3Cpath fill='currentColor' d='M24 9.4L22.6 8L16 14.6L9.4 8L8 9.4l6.6 6.6L8 22.6L9.4 24l6.6-6.6l6.6 6.6l1.4-1.4l-6.6-6.6L24 9.4z'/%3E%3C/svg%3E\");mask:var(--un-icon) no-repeat;mask-size:100% 100%;-webkit-mask:var(--un-icon) no-repeat;-webkit-mask-size:100% 100%;background-color:currentColor;width:1em;height:1em;}[un-position~=\"absolute\"]{position:absolute;}[un-position~=\"fixed\"]{position:fixed;}[un-position~=\"left-1\\/2\"]{left:50%;}[un-position~=\"right-2\"]{right:0.5rem;}[un-position~=\"top-1\\/2\"]{top:50%;}[un-position~=\"top-2\"]{top:0.5rem;}[un-z-200=\"\"]{z-index:200;}[un-m~=\"x-1\"]{margin-left:0.25rem;margin-right:0.25rem;}[un-m~=\"x-4\"]{margin-left:1rem;margin-right:1rem;}[un-m~=\"y-1\"]{margin-top:0.25rem;margin-bottom:0.25rem;}[un-m~=\"y-2\"]{margin-top:0.5rem;margin-bottom:0.5rem;}[un-display~=\"block\"]{display:block;}[un-display~=\"flex\"],[un-flex=\"\"]{display:flex;}[un-h-60=\"\"]{height:15rem;}[un-max-w~=\"\\31 1\\/12\"]{max-width:91.6666666667%;}[un-w-200=\"\"]{width:50rem;}[un-w~=\"\\34 \"]{width:1rem;}[un-flex-wrap=\"\"]{flex-wrap:wrap;}[un-transform~=\"translate-x--1\\/2\"],[un-transform~=\"translate-y--1\\/2\"]{--un-rotate:0;--un-rotate-x:0;--un-rotate-y:0;--un-rotate-z:0;--un-scale-x:1;--un-scale-y:1;--un-scale-z:1;--un-skew-x:0;--un-skew-y:0;--un-translate-x:0;--un-translate-y:0;--un-translate-z:0;--un-transform:translateX(var(--un-translate-x)) translateY(var(--un-translate-y)) translateZ(var(--un-translate-z)) rotate(var(--un-rotate)) rotateX(var(--un-rotate-x)) rotateY(var(--un-rotate-y)) rotateZ(var(--un-rotate-z)) skewX(var(--un-skew-x)) skewY(var(--un-skew-y)) scaleX(var(--un-scale-x)) scaleY(var(--un-scale-y)) scaleZ(var(--un-scale-z));}[un-transform~=\"translate-x--1\\/2\"]{--un-translate-x:-50%;transform:var(--un-transform);}[un-transform~=\"translate-y--1\\/2\"]{--un-translate-y:-50%;transform:var(--un-transform);}[un-cursor~=\"pointer\"]{cursor:pointer;}[un-items-center=\"\"]{align-items:center;}[un-overflow~=\"hidden\"]{overflow:hidden;}[un-overflow~=\"y-auto\"]{overflow-y:auto;}[un-border~=\"t-10\"]{border-top-width:10px;border-top-style:solid;}[un-border~=\"orange-400\"]{--un-border-opacity:1;border-color:rgba(251,146,60,var(--un-border-opacity));}[un-border~=\"rounded-full\"]{border-radius:9999px;}[un-border~=\"rounded-lg\"]{border-radius:0.5rem;}[un-bg~=\"gray-100\\/90\"]{background-color:rgba(243,244,246,0.9);}[un-bg~=\"orange-200\"]{--un-bg-opacity:1;background-color:rgba(254,215,170,var(--un-bg-opacity));}[un-bg~=\"red-300\"]{--un-bg-opacity:1;background-color:rgba(252,165,165,var(--un-bg-opacity));}[un-p~=\"y-0\\.5\"]{padding-top:0.125rem;padding-bottom:0.125rem;}[un-p~=\"l-2\"]{padding-left:0.5rem;}[un-p~=\"r-1\"]{padding-right:0.25rem;}[un-text~=\"base\"]{font-size:1rem;line-height:1.5rem;}[un-text~=\"sm\"]{font-size:0.875rem;line-height:1.25rem;}[un-font~=\"bold\"]{font-weight:700;}[un-text~=\"gray-600\"]{--un-text-opacity:1;color:rgba(75,85,99,var(--un-text-opacity));}[un-text~=\"white\"]{--un-text-opacity:1;color:rgba(255,255,255,var(--un-text-opacity));}");
   const showSettings = vue.ref(false);
   const toggleSettings = () => {
     showSettings.value = !showSettings.value;
@@ -68,17 +66,6 @@
     } else {
       addBlockedBoard(boardId);
     }
-  };
-  const isDark = vue.ref(false);
-  const storedDarkMode = localStorage.getItem("dark-mode");
-  if (storedDarkMode === "true") {
-    isDark.value = true;
-    document.body.classList.add("bdwm-dark");
-  }
-  const toggleDarkMode = () => {
-    isDark.value = !isDark.value;
-    localStorage.setItem("dark-mode", isDark.value.toString());
-    document.body.classList.toggle("bdwm-dark");
   };
   const _hoisted_1$1 = {
     "un-display": "flex",
@@ -161,7 +148,6 @@
     "un-flex-wrap": ""
   };
   const _hoisted_9 = /* @__PURE__ */ vue.createElementVNode("p", { "un-text": "sm gray-600" }, " \u53D6\u6D88\u5C4F\u853D\u540E\u9700\u8981\u5237\u65B0\u9875\u9762\u624D\u80FD\u751F\u6548 ", -1);
-  const _hoisted_10 = /* @__PURE__ */ vue.createTextVNode(" \u989C\u8272\u4E3B\u9898 ");
   const _sfc_main = /* @__PURE__ */ vue.defineComponent({
     setup(__props) {
       return (_ctx, _cache) => {
@@ -191,15 +177,7 @@
                 }, null, 8, ["name", "onClick"]);
               }), 128))
             ]),
-            _hoisted_9,
-            vue.createElementVNode("p", null, [
-              _hoisted_10,
-              vue.createElementVNode("i", {
-                class: vue.normalizeClass(vue.unref(isDark) ? "i-carbon-moon" : "i-carbon-sun"),
-                "un-display": "inline-block",
-                onClick: _cache[1] || (_cache[1] = (...args) => vue.unref(toggleDarkMode) && vue.unref(toggleDarkMode)(...args))
-              }, null, 2)
-            ])
+            _hoisted_9
           ])
         ])) : vue.createCommentVNode("", true);
       };
@@ -417,5 +395,4 @@
   const anchorDiv = document.createElement("div");
   document.body.appendChild(anchorDiv);
   vue.createApp(_sfc_main).mount(anchorDiv);
-  GM_addStyle(GM_getResourceText("dark-css"));
 })(Vue);
