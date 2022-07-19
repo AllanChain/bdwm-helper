@@ -23,7 +23,6 @@ const emit = defineEmits<{
     </div>
     <div
       un-w="4"
-      un-p="r-1"
       un-bg="red-300"
       un-text="white"
       un-cursor="pointer"

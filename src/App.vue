@@ -9,23 +9,23 @@ import BlockedItem from './components/BlockedItem.vue'
     v-if="showSettings"
     un-position="fixed top-1/2 left-1/2"
     un-transform="translate-y--1/2 translate-x--1/2"
-    un-w-200 un-h-60 un-z-200
+    un-w-150 un-h-60 un-z-200
     un-max-w="11/12"
     un-border="rounded-lg t-10 orange-400"
     un-overflow="y-auto"
     un-bg="gray-100/90"
-    un-text="sm"
+    un-text="xs"
   >
     <div
       un-position="absolute top-2 right-2"
       @click="showSettings = false"
     >
-      <i un-display="block" class="i-carbon-close" />
+      <div class="i-carbon-close text-lg" />
     </div>
     <div un-m="x-4" un-overflow="y-auto">
-      <span un-text="base" un-font="bold" un-m="y-2">
+      <div un-text="sm" un-font="bold" un-m="y-2">
         已屏蔽的用户
-      </span>
+      </div>
       <div un-flex un-flex-wrap>
         <BlockedItem
           v-for="blockedUser in blockedUsers"
@@ -34,9 +34,9 @@ import BlockedItem from './components/BlockedItem.vue'
           @click="unblockUser(blockedUser)"
         />
       </div>
-      <span un-text="base" un-font="bold" un-m="y-2">
+      <div un-text="sm" un-font="bold" un-m="y-2">
         已屏蔽的版面
-      </span>
+      </div>
       <div un-flex un-flex-wrap>
         <BlockedItem
           v-for="blockedBoard in blockedBoards"
@@ -45,7 +45,7 @@ import BlockedItem from './components/BlockedItem.vue'
           @click="unblockBoard(blockedBoard)"
         />
       </div>
-      <p un-text="sm gray-600">
+      <p un-text="xs gray-600">
         取消屏蔽后需要刷新页面才能生效
       </p>
     </div>
