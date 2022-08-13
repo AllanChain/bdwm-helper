@@ -39,6 +39,19 @@ const getAvatarElement = (postCard: HTMLDivElement) => {
     : (postCard.querySelector('.avatar>img') as HTMLImageElement)
 }
 
+const getQuoteNameAndElement = (postCard: HTMLDivElement) => {
+  const quoteHead = postCard.querySelector('p.quotehead[data-username]') as HTMLParagraphElement
+  const quoteUsername = quoteHead?.getAttribute('data-username')
+  if (isDesktop) {
+    const quoteElements = postCard.querySelectorAll('p.blockquote')
+    return { quoteHead, quoteUsername, quoteElements }
+  }
+  else {
+    const quoteElements = quoteHead?.parentElement?.querySelectorAll('p.blockquote, .quote-expand')
+    return { quoteHead, quoteUsername, quoteElements }
+  }
+}
+
 const addBlockBtn = (postCard: HTMLDivElement, username: string) => {
   const blockBtn = document.createElement('a')
   blockBtn.className = 'block'
@@ -75,6 +88,7 @@ export const blockPostCard = () => {
     if (!username) {
       continue
     }
+
     if (blockedUsers.value.includes(username)) {
       // BLOCK CONTENT
       const postContent = getPostContentElement(postCard)
@@ -92,6 +106,18 @@ export const blockPostCard = () => {
     }
     else if (username !== '屏蔽用户') {
       addBlockBtn(postCard, username)
+    }
+
+    const { quoteHead, quoteUsername, quoteElements } = getQuoteNameAndElement(postCard)
+    if (quoteUsername && quoteHead && quoteElements) {
+      if (blockedUsers.value.includes(quoteUsername)) {
+        quoteHead.innerText = '屏蔽用户的发言'
+        quoteHead.removeAttribute('data-username')
+        console.log(quoteElements)
+        for (const quoteElement of quoteElements) {
+          quoteElement.remove()
+        }
+      }
     }
   }
 }
