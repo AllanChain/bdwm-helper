@@ -36,7 +36,7 @@ export default defineConfig({
         'icon': 'https://bbs.pku.edu.cn/favicon.ico',
         'source': 'https://github.com/AllanChain/bdwm-helper',
         'supportURL': 'https://github.com/AllanChain/bdwm-helper/issues',
-        'updateURL': 'https://allanchain.github.io/bdwm-helper/bdwm-helper.iife.user.js',
+        'updateURL': 'https://allanchain.github.io/bdwm-helper/bdwm-helper.user.js',
       },
       build: {
         externalGlobals: {

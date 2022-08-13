@@ -16,7 +16,7 @@
 
 确保安装了 Tampermonkey 插件，然后从下面的网址安装
 
-https://allanchain.github.io/bdwm-helper/bdwm-helper.iife.user.js
+https://allanchain.github.io/bdwm-helper/bdwm-helper.user.js
 
 ## 使用说明
 
