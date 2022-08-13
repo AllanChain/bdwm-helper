@@ -1,16 +1,9 @@
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
+import monkey, { cdn } from 'vite-plugin-monkey'
 import Unocss from 'unocss/vite'
 import { presetAttributify, presetUno } from 'unocss'
 import presetIcons from '@unocss/preset-icons'
-import tampermonkey from 'vite-plugin-tampermonkey'
-
-const tmPlugin = tampermonkey({
-  externalGlobals: ['vue'],
-})
-
-delete tmPlugin.transform
-delete tmPlugin.writeBundle
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -26,34 +19,30 @@ export default defineConfig({
       ],
     }),
     vue(),
-    tmPlugin,
-    {
-      name: 'inject-css',
-      apply: 'build',
-      enforce: 'post',
-      generateBundle(_, bundle) {
-        const cssFiles = Object.keys(bundle).filter(i => i.endsWith('.css'))
-        const jsFiles = Object.keys(bundle).filter(i => i.endsWith('.js'))
-        const cssContent = cssFiles
-          .map((cssFile) => {
-            const chunk = bundle[cssFile]
-            if (chunk.type === 'asset' && typeof chunk.source === 'string') {
-              delete bundle[cssFile]
-              return chunk.source
-            }
-            return ''
-          })
-          .join('\n')
-        for (const jsFile of jsFiles) {
-          const chunk = bundle[jsFile]
-          if (chunk.type === 'chunk') {
-            chunk.code = chunk.code.replace(
-              'console.warn("__TEMPLATE_INJECT_CSS_PLACEHOLDER_NOT_WORK__")',
-              `GM_addStyle(${JSON.stringify(cssContent)})`,
-            )
-          }
-        }
+    monkey({
+      entry: 'src/main.ts',
+      userscript: {
+        'name': '未名 BBS 屏蔽助手',
+        'namespace': 'https://allanchain.github.io',
+        'description': 'BDWM Block',
+        'author': 'motaguoke & Allan Chain',
+        'match': [
+          'http://bbs.pku.edu.cn/*',
+          'https://bbs.pku.edu.cn/*',
+          'http://*.bdwm.net/*',
+          'https://*.bdwm.net/*',
+        ],
+        'run-at': 'document-body',
+        'icon': 'https://bbs.pku.edu.cn/favicon.ico',
+        'source': 'https://github.com/AllanChain/bdwm-helper',
+        'supportURL': 'https://github.com/AllanChain/bdwm-helper/issues',
+        'updateURL': 'https://allanchain.github.io/bdwm-helper/bdwm-helper.iife.user.js',
       },
-    },
+      build: {
+        externalGlobals: {
+          vue: cdn.jsdelivr('Vue', 'dist/vue.global.prod.js'),
+        },
+      },
+    }),
   ],
 })

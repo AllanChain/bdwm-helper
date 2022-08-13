@@ -2,40 +2,25 @@
   "name": "bdwm-helper",
   "private": true,
   "version": "2.0.0",
+  "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "vue-tsc --noEmit && vite build",
     "preview": "vite preview"
   },
-  "tampermonkey": {
-    "name": "未名 BBS 屏蔽助手",
-    "description": "BDWM Block",
-    "author": "motaguoke & Allan Chain",
-    "match": [
-      "http://bbs.pku.edu.cn/*",
-      "https://bbs.pku.edu.cn/*",
-      "http://*.bdwm.net/*",
-      "https://*.bdwm.net/*"
-    ],
-    "run-at": "document-body",
-    "icon": "https://bbs.pku.edu.cn/favicon.ico",
-    "source": "https://github.com/AllanChain/bdwm-helper",
-    "supportURL": "https://github.com/AllanChain/bdwm-helper/issues",
-    "updateURL": "https://allanchain.github.io/bdwm-helper/bdwm-helper.iife.user.js"
-  },
   "dependencies": {
-    "vue": "^3.2.25"
+    "vue": "^3.2.37"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "^0.22.0",
-    "@iconify-json/carbon": "^1.1.4",
-    "@unocss/preset-icons": "^0.32.8",
-    "@vitejs/plugin-vue": "^2.3.1",
-    "eslint": "^8.14.0",
-    "typescript": "^4.5.4",
-    "unocss": "^0.32.8",
-    "vite": "^2.9.5",
-    "vite-plugin-tampermonkey": "^1.0.1",
-    "vue-tsc": "^0.34.7"
+    "@antfu/eslint-config": "^0.26.1",
+    "@iconify-json/carbon": "^1.1.7",
+    "@unocss/preset-icons": "^0.45.6",
+    "@vitejs/plugin-vue": "^3.0.3",
+    "eslint": "^8.21.0",
+    "typescript": "^4.7.4",
+    "unocss": "^0.45.6",
+    "vite": "^3.0.7",
+    "vite-plugin-monkey": "^2.0.0",
+    "vue-tsc": "^0.40.1"
   }
 }
