@@ -27,7 +27,7 @@ const getPostContentElement = (postCard: HTMLDivElement) => {
 const getAvatarElement = (postCard: HTMLDivElement) => {
   return isDesktop
     ? (postCard.querySelector('img.portrait') as HTMLImageElement)
-    : (postCard.querySelector('img.avatar') as HTMLImageElement)
+    : (postCard.querySelector('.avatar>img') as HTMLImageElement)
 }
 
 const addBlockBtn = (postCard: HTMLDivElement, username: string) => {
