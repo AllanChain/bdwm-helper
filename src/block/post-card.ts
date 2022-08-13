@@ -20,6 +20,15 @@ const getUsernameAndElement = (postCard: HTMLDivElement) => {
   return { username: usernameElement.firstChild?.textContent, usernameElement }
 }
 
+const cleanOtherUserInfo = (postCard: HTMLDivElement) => {
+  if (isDesktop) {
+    const usernameContainer = postCard.querySelector('.username') as HTMLAnchorElement
+    while (usernameContainer.nextElementSibling) {
+      usernameContainer.nextElementSibling.remove()
+    }
+  }
+}
+
 const getPostContentElement = (postCard: HTMLDivElement) => {
   return postCard.querySelector('.body') as HTMLDivElement
 }
@@ -79,12 +88,7 @@ export const blockPostCard = () => {
       }
       const portraitElement = getAvatarElement(postCard)
       portraitElement.src = 'https://bbs.pku.edu.cn/v2/images/user/portrait-neu.png'
-      if (isDesktop) {
-        const funcBar = postCard.querySelector('.functions')
-        if (funcBar) {
-          funcBar.parentNode!.removeChild(funcBar)
-        }
-      }
+      cleanOtherUserInfo(postCard)
     }
     else if (username !== '屏蔽用户') {
       addBlockBtn(postCard, username)
