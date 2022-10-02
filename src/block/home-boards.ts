@@ -72,9 +72,13 @@ export const blockHomepageBoards = () => {
   }
   else {
     for (const boardInfoElement of document.querySelectorAll('a.post-info')) {
-      const boardTitle = boardInfoElement.firstChild?.textContent?.trim()
-      console.log(boardTitle)
-      if (boardTitle && blockedBoards.value.includes(boardTitle)) {
+      let boardTitle = boardInfoElement.firstChild?.textContent?.trim()
+      if (!boardTitle) { continue }
+      const space = '　' // A special space is used in 100 hot topics page
+      if (boardTitle.includes(space)) {
+        boardTitle = boardTitle.split(space)[0]
+      }
+      if (blockedBoards.value.includes(boardTitle)) {
         boardInfoElement.innerHTML = '已屏蔽版面'
         boardInfoElement.previousElementSibling!.innerHTML = '屏蔽版面的话题'
         const postLinkElement = boardInfoElement.parentElement?.querySelector(
@@ -87,4 +91,27 @@ export const blockHomepageBoards = () => {
     }
   }
   addBlockBoardBtn()
+}
+
+export const block100Boards = () => {
+  if (!isDesktop) {
+    // Mobile 100 hot topic page is similar to home page,
+    // so blocking is done in homepage blocking.
+    return
+  }
+  const items = document.querySelectorAll('.list-item-topic')
+  for (const item of items) {
+    const boardNameElement = item.querySelector('.board') as HTMLDivElement
+    if (boardNameElement) {
+      const boardTitle = boardNameElement.innerText.split('(', 1)[0]
+      console.log(boardTitle)
+      if (blockedBoards.value.includes(boardTitle)) {
+        boardNameElement.innerText = '已屏蔽版面'
+        const titleElement = item.querySelector('.title') as HTMLDivElement
+        if (titleElement) { titleElement.innerText = '屏蔽版面的话题' }
+        const linkElement = item.querySelector('.link') as HTMLAnchorElement
+        if (linkElement) { linkElement.href = 'javascript:void(0)' }
+      }
+    }
+  }
 }
