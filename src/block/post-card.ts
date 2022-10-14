@@ -13,34 +13,34 @@ const blockUser = (event: MouseEvent) => {
 
 const getUsernameAndElement = (postCard: HTMLDivElement) => {
   if (isDesktop) {
-    const usernameElement = postCard.querySelector('.username a') as HTMLAnchorElement
-    return { username: usernameElement.innerText, usernameElement }
+    const usernameElement = postCard.querySelector<HTMLAnchorElement>('.username a')
+    return { username: usernameElement?.innerText, usernameElement }
   }
-  const usernameElement = postCard.querySelector('.author .name') as HTMLSpanElement
-  return { username: usernameElement.firstChild?.textContent, usernameElement }
+  const usernameElement = postCard.querySelector<HTMLSpanElement>('.author .name')
+  return { username: usernameElement?.firstChild?.textContent, usernameElement }
 }
 
 const cleanOtherUserInfo = (postCard: HTMLDivElement) => {
   if (isDesktop) {
-    const usernameContainer = postCard.querySelector('.username') as HTMLAnchorElement
-    while (usernameContainer.nextElementSibling) {
+    const usernameContainer = postCard.querySelector<HTMLAnchorElement>('.username')
+    while (usernameContainer?.nextElementSibling) {
       usernameContainer.nextElementSibling.remove()
     }
   }
 }
 
 const getPostContentElement = (postCard: HTMLDivElement) => {
-  return postCard.querySelector('.body') as HTMLDivElement
+  return postCard.querySelector<HTMLDivElement>('.body')
 }
 
 const getAvatarElement = (postCard: HTMLDivElement) => {
   return isDesktop
-    ? (postCard.querySelector('img.portrait') as HTMLImageElement)
-    : (postCard.querySelector('.avatar>img') as HTMLImageElement)
+    ? postCard.querySelector<HTMLImageElement>('img.portrait')
+    : postCard.querySelector<HTMLImageElement>('.avatar>img')
 }
 
 const getQuoteNameAndElement = (postCard: HTMLDivElement) => {
-  const quoteHead = postCard.querySelector('p.quotehead[data-username]') as HTMLParagraphElement
+  const quoteHead = postCard.querySelector<HTMLParagraphElement>('p.quotehead[data-username]')
   const quoteUsername = quoteHead?.getAttribute('data-username')
   if (isDesktop) {
     const quoteElements = postCard.querySelectorAll('p.blockquote')
@@ -82,7 +82,7 @@ const addBlockBtn = (postCard: HTMLDivElement, username: string) => {
  * 屏蔽用户发言
  */
 export const blockPostCard = () => {
-  const postCards = document.getElementsByClassName('post-card') as HTMLCollectionOf<HTMLDivElement>
+  const postCards = document.querySelectorAll<HTMLDivElement>('div.post-card')
   for (const postCard of postCards) {
     const { username, usernameElement } = getUsernameAndElement(postCard)
     if (!username) {
@@ -95,13 +95,17 @@ export const blockPostCard = () => {
       const paraElement = document.createElement('p')
       paraElement.innerText = '屏蔽用户的发言'
       paraElement.style.color = 'red'
-      postContent.replaceChildren(paraElement)
+      if (postContent) {
+        postContent.replaceChildren(paraElement)
+      }
       // BLOCK USERNAME
       if (usernameElement) {
         usernameElement.innerText = '屏蔽用户'
       }
       const portraitElement = getAvatarElement(postCard)
-      portraitElement.src = 'https://bbs.pku.edu.cn/v2/images/user/portrait-neu.png'
+      if (portraitElement) {
+        portraitElement.src = 'https://bbs.pku.edu.cn/v2/images/user/portrait-neu.png'
+      }
       cleanOtherUserInfo(postCard)
     }
     else if (username !== '屏蔽用户') {

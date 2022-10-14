@@ -10,8 +10,10 @@ export const blockTopicItem = () => {
       const authorName = authorNameElement.innerText
       if (blockedUsers.value.includes(authorName)) {
         authorNameElement.innerText = '屏蔽用户'
-        const tilteElement = topicItem.querySelector('.title-cont .title') as HTMLElement
-        tilteElement.innerText = '屏蔽用户的话题'
+        const titleElement = topicItem.querySelector<HTMLElement>('.title-cont .title')
+        if (titleElement) {
+          titleElement.innerText = '屏蔽用户的话题'
+        }
         topicItem.querySelector('a')!.href = 'javascript:void(0)'
         // 如果是楼主而不是最后发言
         const previousElement = authorElement.previousElementSibling

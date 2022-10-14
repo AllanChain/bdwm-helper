@@ -56,9 +56,9 @@ const addBlockBoardBtn = () => {
  */
 export const blockHomepageBoards = () => {
   if (isDesktop) {
-    const links = document.getElementsByClassName(
-      'topic-link',
-    ) as HTMLCollectionOf<HTMLAnchorElement>
+    const links = document.querySelectorAll<HTMLAnchorElement>(
+      'a.topic-link',
+    )
     for (const homepageBoardLink of links) {
       const boardTitle = homepageBoardLink.innerText.slice(1, -1)
       if (blockedBoards.value.includes(boardTitle)) {
@@ -81,9 +81,9 @@ export const blockHomepageBoards = () => {
       if (blockedBoards.value.includes(boardTitle)) {
         boardInfoElement.innerHTML = '已屏蔽版面'
         boardInfoElement.previousElementSibling!.innerHTML = '屏蔽版面的话题'
-        const postLinkElement = boardInfoElement.parentElement?.querySelector(
+        const postLinkElement = boardInfoElement.parentElement?.querySelector<HTMLAnchorElement>(
           'a.post-link',
-        ) as HTMLAnchorElement
+        )
         if (postLinkElement) {
           postLinkElement.href = 'javascript:void(0)'
         }
@@ -101,15 +101,15 @@ export const block100Boards = () => {
   }
   const items = document.querySelectorAll('.list-item-topic')
   for (const item of items) {
-    const boardNameElement = item.querySelector('.board') as HTMLDivElement
+    const boardNameElement = item.querySelector<HTMLDivElement>('.board')
     if (boardNameElement) {
       const boardTitle = boardNameElement.innerText.split('(', 1)[0]
       console.log(boardTitle)
       if (blockedBoards.value.includes(boardTitle)) {
         boardNameElement.innerText = '已屏蔽版面'
-        const titleElement = item.querySelector('.title') as HTMLDivElement
+        const titleElement = item.querySelector<HTMLDivElement>('.title')
         if (titleElement) { titleElement.innerText = '屏蔽版面的话题' }
-        const linkElement = item.querySelector('.link') as HTMLAnchorElement
+        const linkElement = item.querySelector<HTMLAnchorElement>('.link')
         if (linkElement) { linkElement.href = 'javascript:void(0)' }
       }
     }
