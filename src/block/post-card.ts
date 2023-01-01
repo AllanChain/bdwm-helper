@@ -101,11 +101,13 @@ export const blockPostCard = () => {
       const postContent = getPostContentElement(postCard)
       if (postContent) {
         const toggleBlockBtn = document.createElement('a')
+        const paraElement = document.createElement('p')
         toggleBlockBtn.style.color = '#47907b'
+        paraElement.appendChild(toggleBlockBtn)
 
         const blockPost = () => {
           for (const child of postContent.children as HTMLCollectionOf<HTMLElement>) {
-            if (child !== toggleBlockBtn) {
+            if (child !== paraElement) {
               child.style.display = 'none'
             }
           }
@@ -133,7 +135,7 @@ export const blockPostCard = () => {
           toggleBlockBtn.dataset.hidden === 'true' ? unblockPost() : blockPost()
         })
 
-        postContent.prepend(toggleBlockBtn)
+        postContent.prepend(paraElement)
         blockPost()
       }
 
