@@ -33,8 +33,11 @@ const getPostContentElement = (postCard: HTMLDivElement) => {
   return postCard.querySelector<HTMLDivElement>('.body')
 }
 
-const getPostSigElement = (postCard: HTMLDivElement) => {
-  return postCard.querySelector<HTMLDivElement>('.signature')
+const getOtherPostElements = (postCard: HTMLDivElement) => {
+  return [
+    postCard.querySelector<HTMLDivElement>('.signature'),
+    postCard.querySelector<HTMLDivElement>('.attachment'),
+  ]
 }
 
 const getAvatarElement = (postCard: HTMLDivElement) => {
@@ -96,16 +99,44 @@ export const blockPostCard = () => {
     if (blockedUsers.value.includes(username)) {
       // BLOCK CONTENT
       const postContent = getPostContentElement(postCard)
-      const paraElement = document.createElement('p')
-      paraElement.innerText = '屏蔽用户的发言'
-      paraElement.style.color = '#47907b'
       if (postContent) {
-        postContent.replaceChildren(paraElement)
+        const toggleBlockBtn = document.createElement('a')
+        toggleBlockBtn.style.color = '#47907b'
+
+        const blockPost = () => {
+          for (const child of postContent.children as HTMLCollectionOf<HTMLElement>) {
+            if (child !== toggleBlockBtn) {
+              child.style.display = 'none'
+            }
+          }
+          toggleBlockBtn.dataset.hidden = 'true'
+          toggleBlockBtn.innerText = '点击显示屏蔽用户的发言'
+          for (const otherElement of getOtherPostElements(postCard)) {
+            if (otherElement) {
+              otherElement.style.display = 'none'
+            }
+          }
+        }
+        const unblockPost = () => {
+          for (const child of postContent.children as HTMLCollectionOf<HTMLElement>) {
+            child.style.display = ''
+          }
+          toggleBlockBtn.dataset.hidden = 'false'
+          toggleBlockBtn.innerText = '点击隐藏屏蔽用户的发言'
+          for (const otherElement of getOtherPostElements(postCard)) {
+            if (otherElement) {
+              otherElement.style.display = ''
+            }
+          }
+        }
+        toggleBlockBtn.addEventListener('click', () => {
+          toggleBlockBtn.dataset.hidden === 'true' ? unblockPost() : blockPost()
+        })
+
+        postContent.prepend(toggleBlockBtn)
+        blockPost()
       }
-      const signature = getPostSigElement(postCard)
-      if (signature) {
-        signature.hidden = true
-      }
+
       // BLOCK USERNAME
       if (usernameElement) {
         usernameElement.innerText = '屏蔽用户'
