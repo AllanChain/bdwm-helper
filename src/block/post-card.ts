@@ -110,7 +110,7 @@ export const blockPostCard = () => {
             }
           }
           toggleBlockBtn.dataset.hidden = 'true'
-          toggleBlockBtn.innerText = '点击显示屏蔽用户的发言'
+          toggleBlockBtn.innerText = '[bdwm-helper] 点击显示屏蔽用户的发言'
           for (const otherElement of getOtherPostElements(postCard)) {
             if (otherElement) {
               otherElement.style.display = 'none'
@@ -122,7 +122,7 @@ export const blockPostCard = () => {
             child.style.display = ''
           }
           toggleBlockBtn.dataset.hidden = 'false'
-          toggleBlockBtn.innerText = '点击隐藏屏蔽用户的发言'
+          toggleBlockBtn.innerText = '[bdwm-helper] 点击隐藏屏蔽用户的发言'
           for (const otherElement of getOtherPostElements(postCard)) {
             if (otherElement) {
               otherElement.style.display = ''
