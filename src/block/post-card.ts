@@ -98,7 +98,7 @@ export const blockPostCard = () => {
       const postContent = getPostContentElement(postCard)
       const paraElement = document.createElement('p')
       paraElement.innerText = '屏蔽用户的发言'
-      paraElement.style.color = 'red'
+      paraElement.style.color = '#47907b'
       if (postContent) {
         postContent.replaceChildren(paraElement)
       }
