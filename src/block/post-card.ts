@@ -33,6 +33,10 @@ const getPostContentElement = (postCard: HTMLDivElement) => {
   return postCard.querySelector<HTMLDivElement>('.body')
 }
 
+const getPostSigElement = (postCard: HTMLDivElement) => {
+  return postCard.querySelector<HTMLDivElement>('.signature')
+}
+
 const getAvatarElement = (postCard: HTMLDivElement) => {
   return isDesktop
     ? postCard.querySelector<HTMLImageElement>('img.portrait')
@@ -97,6 +101,10 @@ export const blockPostCard = () => {
       paraElement.style.color = 'red'
       if (postContent) {
         postContent.replaceChildren(paraElement)
+      }
+      const signature = getPostSigElement(postCard)
+      if (signature) {
+        signature.hidden = true
       }
       // BLOCK USERNAME
       if (usernameElement) {
