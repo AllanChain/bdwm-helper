@@ -10,6 +10,7 @@ import BlockedItem from './components/BlockedItem.vue'
     un-position="fixed top-0 left-0"
     un-z-200 un-w-full un-h-full
     un-bg="black/30"
+    @click.self="showSettings = false"
   >
     <div
       un-position="relative top-1/2 left-1/2"
