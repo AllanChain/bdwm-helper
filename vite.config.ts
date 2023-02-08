@@ -37,6 +37,7 @@ export default defineConfig({
         'source': 'https://github.com/AllanChain/bdwm-helper',
         'supportURL': 'https://github.com/AllanChain/bdwm-helper/issues',
         'updateURL': 'https://allanchain.github.io/bdwm-helper/bdwm-helper.user.js',
+        'downloadURL': 'https://allanchain.github.io/bdwm-helper/bdwm-helper.user.js',
       },
       build: {
         externalGlobals: {
