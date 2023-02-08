@@ -1,12 +1,14 @@
 {
   "name": "bdwm-helper",
-  "private": true,
-  "version": "2.2.0",
   "type": "module",
+  "version": "2.2.0",
+  "private": true,
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc --noEmit && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
   },
   "dependencies": {
     "vue": "^3.2.47"

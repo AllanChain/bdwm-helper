@@ -73,7 +73,9 @@ export const blockHomepageBoards = () => {
   else {
     for (const boardInfoElement of document.querySelectorAll('a.post-info')) {
       let boardTitle = boardInfoElement.firstChild?.textContent?.trim()
-      if (!boardTitle) { continue }
+      if (!boardTitle) {
+        continue
+      }
       const space = '　' // A special space is used in 100 hot topics page
       if (boardTitle.includes(space)) {
         boardTitle = boardTitle.split(space)[0]
@@ -108,9 +110,13 @@ export const block100Boards = () => {
       if (blockedBoards.value.includes(boardTitle)) {
         boardNameElement.innerText = '已屏蔽版面'
         const titleElement = item.querySelector<HTMLDivElement>('.title')
-        if (titleElement) { titleElement.innerText = '屏蔽版面的话题' }
+        if (titleElement) {
+          titleElement.innerText = '屏蔽版面的话题'
+        }
         const linkElement = item.querySelector<HTMLAnchorElement>('.link')
-        if (linkElement) { linkElement.href = 'javascript:void(0)' }
+        if (linkElement) {
+          linkElement.href = 'javascript:void(0)'
+        }
       }
     }
   }
