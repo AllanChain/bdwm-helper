@@ -2,8 +2,6 @@
 
 感谢 motaguoke 的[初期工作](https://bbs.pku.edu.cn/v2/post-read.php?bid=361&threadid=17576484)！
 
-当前依然处于开发测试阶段。
-
 主要功能：
 - 屏蔽用户
   - 所有主题帖内，该用户的发言将被屏蔽
