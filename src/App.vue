@@ -49,7 +49,7 @@ import BlockedItem from './components/BlockedItem.vue'
             @click="unblockBoard(blockedBoard)"
           />
         </div>
-        <p un-text="xs gray-600">
+        <p un-text="xs gray-600" un-m="y-2">
           取消屏蔽后需要刷新页面才能生效
         </p>
       </div>
