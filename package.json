@@ -11,18 +11,18 @@
     "lint:fix": "eslint . --fix"
   },
   "dependencies": {
-    "vue": "^3.2.47"
+    "vue": "^3.3.4"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "^0.35.2",
-    "@iconify-json/carbon": "^1.1.14",
-    "@unocss/preset-icons": "^0.49.4",
-    "@vitejs/plugin-vue": "^4.0.0",
-    "eslint": "^8.33.0",
-    "typescript": "^4.9.5",
-    "unocss": "^0.49.4",
-    "vite": "^4.1.1",
-    "vite-plugin-monkey": "^2.11.1",
-    "vue-tsc": "^1.0.24"
+    "@antfu/eslint-config": "^0.39.3",
+    "@iconify-json/carbon": "^1.1.16",
+    "@unocss/preset-icons": "^0.52.4",
+    "@vitejs/plugin-vue": "^4.2.3",
+    "eslint": "^8.41.0",
+    "typescript": "^5.0.4",
+    "unocss": "^0.52.4",
+    "vite": "^4.3.9",
+    "vite-plugin-monkey": "^3.2.1",
+    "vue-tsc": "^1.6.5"
   }
 }
