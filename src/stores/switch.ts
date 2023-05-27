@@ -1,6 +1,6 @@
 import { ref } from 'vue'
 
 export const showSettings = ref(false)
-export const toggleSettings = () => {
+export function toggleSettings() {
   showSettings.value = !showSettings.value
 }

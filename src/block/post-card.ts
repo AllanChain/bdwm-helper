@@ -1,7 +1,7 @@
 import { isDesktop } from '../is-mobile'
 import { addBlockedUser, blockedUsers } from '../stores/blocked'
 
-const blockUser = (event: MouseEvent) => {
+function blockUser(event: MouseEvent) {
   const blockBtn = event.target as HTMLAnchorElement
   const username = blockBtn.dataset.username
   if (!username) {
@@ -11,7 +11,7 @@ const blockUser = (event: MouseEvent) => {
   blockBtn.parentNode!.removeChild(blockBtn)
 }
 
-const getUsernameAndElement = (postCard: HTMLDivElement) => {
+function getUsernameAndElement(postCard: HTMLDivElement) {
   if (isDesktop) {
     const usernameElement = postCard.querySelector<HTMLAnchorElement>('.username a')
     return { username: usernameElement?.innerText, usernameElement }
@@ -20,7 +20,7 @@ const getUsernameAndElement = (postCard: HTMLDivElement) => {
   return { username: usernameElement?.firstChild?.textContent, usernameElement }
 }
 
-const cleanOtherUserInfo = (postCard: HTMLDivElement) => {
+function cleanOtherUserInfo(postCard: HTMLDivElement) {
   if (isDesktop) {
     const usernameContainer = postCard.querySelector<HTMLAnchorElement>('.username')
     while (usernameContainer?.nextElementSibling) {
@@ -29,24 +29,24 @@ const cleanOtherUserInfo = (postCard: HTMLDivElement) => {
   }
 }
 
-const getPostContentElement = (postCard: HTMLDivElement) => {
+function getPostContentElement(postCard: HTMLDivElement) {
   return postCard.querySelector<HTMLDivElement>('.body')
 }
 
-const getOtherPostElements = (postCard: HTMLDivElement) => {
+function getOtherPostElements(postCard: HTMLDivElement) {
   return [
     postCard.querySelector<HTMLDivElement>('.signature'),
     postCard.querySelector<HTMLDivElement>('.attachment'),
   ]
 }
 
-const getAvatarElement = (postCard: HTMLDivElement) => {
+function getAvatarElement(postCard: HTMLDivElement) {
   return isDesktop
     ? postCard.querySelector<HTMLImageElement>('img.portrait')
     : postCard.querySelector<HTMLImageElement>('.avatar>img')
 }
 
-const getQuoteNameAndElement = (postCard: HTMLDivElement) => {
+function getQuoteNameAndElement(postCard: HTMLDivElement) {
   const quoteHead = postCard.querySelector<HTMLParagraphElement>('p.quotehead[data-username]')
   const quoteUsername = quoteHead?.getAttribute('data-username')
   if (isDesktop) {
@@ -59,7 +59,7 @@ const getQuoteNameAndElement = (postCard: HTMLDivElement) => {
   }
 }
 
-const addBlockBtn = (postCard: HTMLDivElement, username: string) => {
+function addBlockBtn(postCard: HTMLDivElement, username: string) {
   const blockBtn = document.createElement('a')
   blockBtn.className = 'block'
   blockBtn.innerText = '屏蔽'
@@ -88,7 +88,7 @@ const addBlockBtn = (postCard: HTMLDivElement, username: string) => {
 /**
  * 屏蔽用户发言
  */
-export const blockPostCard = () => {
+export function blockPostCard() {
   const postCards = document.querySelectorAll<HTMLDivElement>('div.post-card')
   for (const postCard of postCards) {
     const { username, usernameElement } = getUsernameAndElement(postCard)

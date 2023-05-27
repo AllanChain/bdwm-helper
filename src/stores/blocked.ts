@@ -1,52 +1,52 @@
 import { ref } from 'vue'
 
-const loadBlockedUsers = (): string[] => {
+function loadBlockedUsers(): string[] {
   const blockedUsers = localStorage.getItem('block-user-list')
   return blockedUsers ? JSON.parse(blockedUsers) : []
 }
 
 export const blockedUsers = ref(loadBlockedUsers())
 
-export const writeBlockedUsers = () => {
+export function writeBlockedUsers() {
   localStorage.setItem('block-user-list', JSON.stringify(blockedUsers.value))
 }
 
-export const addBlockedUser = (userId: string) => {
+export function addBlockedUser(userId: string) {
   if (!blockedUsers.value.includes(userId)) {
     blockedUsers.value.push(userId)
     writeBlockedUsers()
   }
 }
 
-export const unblockUser = (userId: string) => {
+export function unblockUser(userId: string) {
   blockedUsers.value = blockedUsers.value.filter(user => user !== userId)
   writeBlockedUsers()
 }
 
-const loadBlockedBoards = (): string[] => {
+function loadBlockedBoards(): string[] {
   const blockedBoards = localStorage.getItem('block-board-list')
   return blockedBoards ? JSON.parse(blockedBoards) : []
 }
 
 export const blockedBoards = ref(loadBlockedBoards())
 
-export const writeBlockedBoards = () => {
+export function writeBlockedBoards() {
   localStorage.setItem('block-board-list', JSON.stringify(blockedBoards.value))
 }
 
-export const addBlockedBoard = (boardId: string) => {
+export function addBlockedBoard(boardId: string) {
   if (!blockedBoards.value.includes(boardId)) {
     blockedBoards.value.push(boardId)
     writeBlockedBoards()
   }
 }
 
-export const unblockBoard = (boardId: string) => {
+export function unblockBoard(boardId: string) {
   blockedBoards.value = blockedBoards.value.filter(board => board !== boardId)
   writeBlockedBoards()
 }
 
-export const toggleBlockedBoard = (boardId: string) => {
+export function toggleBlockedBoard(boardId: string) {
   if (blockedBoards.value.includes(boardId)) {
     unblockBoard(boardId)
   }

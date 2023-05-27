@@ -3,7 +3,7 @@ import { blockedUsers } from '../stores/blocked'
 /**
  * 屏蔽版面界面显示的用户发帖
  */
-export const blockTopicItem = () => {
+export function blockTopicItem() {
   for (const topicItem of document.getElementsByClassName('list-item-topic')) {
     for (const authorElement of topicItem.getElementsByClassName('author')) {
       const authorNameElement = authorElement.getElementsByClassName('name')[0] as HTMLAnchorElement

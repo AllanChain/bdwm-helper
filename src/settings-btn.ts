@@ -1,7 +1,7 @@
 import { toggleSettings } from './stores/switch'
 import { isMobile } from './is-mobile'
 
-export const createSettingsBtn = () => {
+export function createSettingsBtn() {
   if (isMobile) {
     const friendMenu = document.querySelector('a[href*="mode=reject"]')?.parentElement
     if (!friendMenu) {

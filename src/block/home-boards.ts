@@ -1,7 +1,7 @@
 import { isDesktop } from '../is-mobile'
 import { blockedBoards, toggleBlockedBoard } from '../stores/blocked'
 
-const addBlockBoardBtn = () => {
+function addBlockBoardBtn() {
   const boardHead = document.querySelector(isDesktop ? '#board-head' : '.board-head')
   if (!boardHead || boardHead?.querySelector('.block')) {
     return
@@ -54,7 +54,7 @@ const addBlockBoardBtn = () => {
 /**
  * 屏蔽首页上不想看的版面
  */
-export const blockHomepageBoards = () => {
+export function blockHomepageBoards() {
   if (isDesktop) {
     const links = document.querySelectorAll<HTMLAnchorElement>(
       'a.topic-link',
@@ -95,7 +95,7 @@ export const blockHomepageBoards = () => {
   addBlockBoardBtn()
 }
 
-export const block100Boards = () => {
+export function block100Boards() {
   if (!isDesktop) {
     // Mobile 100 hot topic page is similar to home page,
     // so blocking is done in homepage blocking.
